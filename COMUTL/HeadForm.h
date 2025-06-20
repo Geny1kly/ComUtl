@@ -1,6 +1,7 @@
 #include "TariffPriceForm.h"
 #include "CalculationsForm.h"
 #include "EditPersonalDataForm.h"
+#include "iostream"
 #pragma once
 
 namespace COMUTL {
@@ -175,6 +176,7 @@ namespace COMUTL {
 			this->HeadMenuStrip->Size = System::Drawing::Size(553, 24);
 			this->HeadMenuStrip->TabIndex = 0;
 			this->HeadMenuStrip->Text = L"menuStrip1";
+			this->HeadMenuStrip->ItemClicked += gcnew System::Windows::Forms::ToolStripItemClickedEventHandler(this, &HeadForm::HeadMenuStrip_ItemClicked);
 			// 
 			// FileToolStripMenuItem
 			// 
@@ -234,6 +236,7 @@ namespace COMUTL {
 			this->EditToolStripMenuItem->Name = L"EditToolStripMenuItem";
 			this->EditToolStripMenuItem->Size = System::Drawing::Size(39, 20);
 			this->EditToolStripMenuItem->Text = L"Edit";
+			this->EditToolStripMenuItem->Click += gcnew System::EventHandler(this, &HeadForm::EditToolStripMenuItem_Click);
 			// 
 			// PersonalDataToolStripMenuItem
 			// 
@@ -707,6 +710,10 @@ namespace COMUTL {
 		OpenTariffPriceForm->ShowDialog();
 	}
 private: System::Void HeadForm_Load_1(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void HeadMenuStrip_ItemClicked(System::Object^ sender, System::Windows::Forms::ToolStripItemClickedEventArgs^ e) {
+}
+private: System::Void EditToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
 }
 };
 }

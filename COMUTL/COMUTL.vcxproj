@@ -81,7 +81,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies />
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <EntryPointSymbol>main</EntryPointSymbol>
     </Link>
   </ItemDefinitionGroup>
@@ -135,6 +135,7 @@
     <ClInclude Include="HeadForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="HeadRecordForm.h" />
     <ClInclude Include="TariffPriceForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>

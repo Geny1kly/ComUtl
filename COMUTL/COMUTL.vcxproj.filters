@@ -41,5 +41,8 @@
     <ClInclude Include="TariffPriceForm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="HeadRecordForm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
