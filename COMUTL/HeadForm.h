@@ -2,6 +2,7 @@
 #include "CalculationsForm.h"
 #include "EditPersonalDataForm.h"
 #include "iostream"
+#include "RecordRepository.h"
 #pragma once
 
 namespace COMUTL {
@@ -22,6 +23,7 @@ namespace COMUTL {
 		HeadForm(void)
 		{
 			InitializeComponent();
+			this->repository = gcnew RecordRepository();
 			this->Load += gcnew System::EventHandler(this, &HeadForm::HeadForm_Load);
 			this->ResourseComboBox->SelectedIndexChanged += gcnew System::EventHandler(this, &HeadForm::ResourseComboBox_Selected);
 		}
@@ -37,10 +39,13 @@ namespace COMUTL {
 				delete components;
 			}
 		}
+private: RecordRepository^ repository;
 
 	private: System::Void HeadForm_Load(System::Object^ sender, System::EventArgs^ e) {
 		InitializeDataListBoxes();
 		this->ResourseComboBox->SelectedIndex = 0;
+		repository->Save("test.utl");
+		std::cout << "asikdhasikjdhas";
 	}
 	private: System::Void ResourseComboBox_Selected(System::Object^ sender, System::EventArgs^ e) {
 		InitializeDataListBoxes();
@@ -696,7 +701,7 @@ namespace COMUTL {
 	}
 
 	private: System::Void PersonalDataToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
-		EditPersonalDataForm^ OpenEditPersonalDataForm = gcnew EditPersonalDataForm();
+		EditPersonalDataForm^ OpenEditPersonalDataForm = gcnew EditPersonalDataForm(repository);
 		OpenEditPersonalDataForm->ShowDialog();
 	}
 

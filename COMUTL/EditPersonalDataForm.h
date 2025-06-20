@@ -1,5 +1,6 @@
 #pragma once
 #include "iostream"
+#include "RecordRepository.h"
 
 namespace COMUTL {
 
@@ -16,12 +17,14 @@ namespace COMUTL {
 	public ref class EditPersonalDataForm : public System::Windows::Forms::Form
 	{
 	public:
-		EditPersonalDataForm(void)
+		EditPersonalDataForm(RecordRepository^ repository)
 		{
 			InitializeComponent();
 			//
 			//TODO: Add the constructor code here
 			//
+
+			this->repository = repository;
 		}
 
 	protected:
@@ -35,6 +38,7 @@ namespace COMUTL {
 				delete components;
 			}
 		}
+	private: RecordRepository^ repository;
 	private: System::Windows::Forms::GroupBox^ EditConditionsGroupBox;
 	private: System::Windows::Forms::GroupBox^ EditInfoGroupBox;
 	private: System::Windows::Forms::GroupBox^ EditAddressGroupBox;

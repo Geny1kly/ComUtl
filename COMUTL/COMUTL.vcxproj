@@ -123,6 +123,7 @@
     <ClCompile Include="CalculationsForm.cpp" />
     <ClCompile Include="EditPersonalDataForm.cpp" />
     <ClCompile Include="HeadForm.cpp" />
+    <ClCompile Include="RecordRepository.cpp" />
     <ClCompile Include="TariffPriceForm.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -136,6 +137,7 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="HeadRecordForm.h" />
+    <ClInclude Include="RecordRepository.h" />
     <ClInclude Include="TariffPriceForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
