@@ -13,5 +13,6 @@ public:
 
 	void Load(String^ filename);
 	void Save(String^ filename);
+	HeadRecordForm^ GetRecord(ERecordType type);
 	List<HeadRecordForm^>^ GetRecords();
 };

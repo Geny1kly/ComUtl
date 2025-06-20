@@ -1,18 +1,26 @@
 #pragma once
 using namespace System;
 
-enum PlanTarif {
+enum EPlanTarif {
     None,
     Yearly,
     Monthly
 };
 
+enum ERecordType {
+    Gas,
+    Water,
+    Electricity
+};
+
 public ref class HeadRecordForm
 {
 public:
+    ERecordType type;
+
     double price;
     int discount;
-    PlanTarif planTarif;
+    EPlanTarif planTarif;
     DateTime termPlan;
     bool subsidious;
 
@@ -26,10 +34,13 @@ public:
 
     double statusBalance;
 
+    HeadRecordForm() {}
     HeadRecordForm(
+        ERecordType type,
+
         double initialPrice,
         int initialDiscount,
-        PlanTarif initialPlan,
+        EPlanTarif initialPlan,
         DateTime initialTerm,
         bool isSubsidious,
 

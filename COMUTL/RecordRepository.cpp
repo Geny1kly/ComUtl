@@ -1,4 +1,5 @@
 #include "RecordRepository.h"
+#include <iostream>
 using namespace System;
 using namespace System::IO;
 using namespace System::Collections::Generic;
@@ -6,10 +7,6 @@ using namespace System::Collections::Generic;
 RecordRepository::RecordRepository()
 {
 	this->records = gcnew List<HeadRecordForm^>();
-	this->records->Add(gcnew HeadRecordForm(
-		0, 0, PlanTarif::None, DateTime::Now, false, "asd",
-		"asdasdasjdhasjdh", "khmeelee", "krasyliv", "centalna", "wash", 1
-	));
 }
 
 List<HeadRecordForm^>^ RecordRepository::GetRecords()
@@ -21,29 +18,45 @@ void RecordRepository::Load(String^ filename)
 {
 	this->records->Clear();
 
-	auto fs = gcnew FileStream(filename, FileMode::Open);
+	FileStream^ fs;
+	try {
+		fs = gcnew FileStream(filename, FileMode::Open);
+	}
+	catch (...) {
+		return;
+	}
 	auto reader = gcnew BinaryReader(fs);
 
 	int recordCount = reader->ReadInt32();
 	for (int i = 0; i < recordCount; i++) {
+		std::cout << "reading " << i;
 		this->records->Add(gcnew HeadRecordForm(
-			reader->ReadDouble(), reader->ReadInt32(), static_cast<PlanTarif>(reader->ReadByte()),
+			static_cast<ERecordType>(reader->ReadByte()),
+			reader->ReadDouble(), reader->ReadInt32(), static_cast<EPlanTarif>(reader->ReadByte()),
 			DateTime::FromBinary(reader->ReadInt64()), reader->ReadBoolean(), reader->ReadString(),
 			reader->ReadString(), reader->ReadString(), reader->ReadString(),
 			reader->ReadString(), reader->ReadString(), reader->ReadDouble()
 		));
 	}
+	std::cout << "size: " << records->Capacity;
 	reader->Close();
 }
 
 void RecordRepository::Save(String^ filename)
 {
-	auto fs = gcnew FileStream(filename, FileMode::Create);
+	FileStream^ fs;
+	try {
+		fs = gcnew FileStream(filename, FileMode::Create);
+	}
+	catch (...) {
+		return;
+	}
 	auto writer = gcnew BinaryWriter(fs);
 
 	writer->Write(this->records->Count);
 
 	for (int i = 0; i < this->records->Count; i++) {
+		writer->Write(static_cast<unsigned char>(this->records[i]->type));
 		writer->Write(this->records[i]->price);
 		writer->Write(this->records[i]->discount);
 		writer->Write(static_cast<unsigned char>(this->records[i]->planTarif));
@@ -58,4 +71,16 @@ void RecordRepository::Save(String^ filename)
 		writer->Write(this->records[i]->statusBalance);
 	}
 	writer->Close();
+}
+
+HeadRecordForm^ RecordRepository::GetRecord(ERecordType type) { 
+	HeadRecordForm^ record = nullptr;
+	for (int i = 0; i < records->Count; i++) {
+		std::cout << "checking for " << records[i]->type << " and " << type << '\n';
+		if (records[i]->type == type) {
+			return records[i];
+		}
+	}
+
+	return nullptr;
 }

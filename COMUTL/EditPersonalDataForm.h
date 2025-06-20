@@ -17,7 +17,7 @@ namespace COMUTL {
 	public ref class EditPersonalDataForm : public System::Windows::Forms::Form
 	{
 	public:
-		EditPersonalDataForm(RecordRepository^ repository)
+		EditPersonalDataForm(RecordRepository^ repository, ERecordType selectedType)
 		{
 			InitializeComponent();
 			//
@@ -25,6 +25,7 @@ namespace COMUTL {
 			//
 
 			this->repository = repository;
+			this->selectedType = selectedType;
 		}
 
 	protected:
@@ -39,6 +40,7 @@ namespace COMUTL {
 			}
 		}
 	private: RecordRepository^ repository;
+	private: ERecordType selectedType;
 	private: System::Windows::Forms::GroupBox^ EditConditionsGroupBox;
 	private: System::Windows::Forms::GroupBox^ EditInfoGroupBox;
 	private: System::Windows::Forms::GroupBox^ EditAddressGroupBox;
@@ -120,6 +122,7 @@ namespace COMUTL {
 		void InitializeComponent(void)
 		{
 			this->EditConditionsGroupBox = (gcnew System::Windows::Forms::GroupBox());
+			this->comboBox2 = (gcnew System::Windows::Forms::ComboBox());
 			this->checkBox1 = (gcnew System::Windows::Forms::CheckBox());
 			this->dateTimePicker1 = (gcnew System::Windows::Forms::DateTimePicker());
 			this->comboBox1 = (gcnew System::Windows::Forms::ComboBox());
@@ -148,7 +151,6 @@ namespace COMUTL {
 			this->CityComboBox = (gcnew System::Windows::Forms::TextBox());
 			this->RegionTextBox = (gcnew System::Windows::Forms::TextBox());
 			this->backgroundWorker1 = (gcnew System::ComponentModel::BackgroundWorker());
-			this->comboBox2 = (gcnew System::Windows::Forms::ComboBox());
 			this->EditConditionsGroupBox->SuspendLayout();
 			this->EditInfoGroupBox->SuspendLayout();
 			this->EditAddressGroupBox->SuspendLayout();
@@ -176,6 +178,15 @@ namespace COMUTL {
 			this->EditConditionsGroupBox->TabStop = false;
 			this->EditConditionsGroupBox->Text = L"Conditions";
 			this->EditConditionsGroupBox->Enter += gcnew System::EventHandler(this, &EditPersonalDataForm::EditConditionsGroupBox_Enter);
+			// 
+			// comboBox2
+			// 
+			this->comboBox2->FormattingEnabled = true;
+			this->comboBox2->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"None", L"Yearly", L"Monthly" });
+			this->comboBox2->Location = System::Drawing::Point(5, 110);
+			this->comboBox2->Name = L"comboBox2";
+			this->comboBox2->Size = System::Drawing::Size(212, 21);
+			this->comboBox2->TabIndex = 10;
 			// 
 			// checkBox1
 			// 
@@ -444,15 +455,6 @@ namespace COMUTL {
 			this->RegionTextBox->Size = System::Drawing::Size(207, 20);
 			this->RegionTextBox->TabIndex = 5;
 			// 
-			// comboBox2
-			// 
-			this->comboBox2->FormattingEnabled = true;
-			this->comboBox2->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"None", L"Yearly", L"Monthly" });
-			this->comboBox2->Location = System::Drawing::Point(5, 110);
-			this->comboBox2->Name = L"comboBox2";
-			this->comboBox2->Size = System::Drawing::Size(212, 21);
-			this->comboBox2->TabIndex = 10;
-			// 
 			// EditPersonalDataForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -466,6 +468,7 @@ namespace COMUTL {
 			this->Name = L"EditPersonalDataForm";
 			this->Text = L"EditPersonalDataForm";
 			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &EditPersonalDataForm::EditPersonalDataForm_FormClosing);
+			this->Load += gcnew System::EventHandler(this, &EditPersonalDataForm::EditPersonalDataForm_Load);
 			this->EditConditionsGroupBox->ResumeLayout(false);
 			this->EditConditionsGroupBox->PerformLayout();
 			this->EditInfoGroupBox->ResumeLayout(false);
@@ -489,10 +492,25 @@ private: System::Void EditPersonalDataForm_FormClosing(System::Object^ sender, S
 
 	if (result == System::Windows::Forms::DialogResult::Yes) {
 		std::cout << "YES";
+		auto record = repository->GetRecord(selectedType);
+		if (record == nullptr) {
+			record = gcnew HeadRecordForm();
+			record->type = selectedType;
+
+			repository->GetRecords()->Add(record);
+		}
+
+		record->price = Double::Parse(PriceTextBox->Text);
 	}
 	else {
 		std::cout << "NO";
 	}
+}
+private: System::Void EditPersonalDataForm_Load(System::Object^ sender, System::EventArgs^ e) {
+	auto record = repository->GetRecord(selectedType);
+	if (record == nullptr) return;
+
+	PriceTextBox->Text = record->price.ToString();
 }
 };
 }

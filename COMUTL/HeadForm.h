@@ -24,6 +24,7 @@ namespace COMUTL {
 		{
 			InitializeComponent();
 			this->repository = gcnew RecordRepository();
+			repository->Load("test.utl");
 			this->Load += gcnew System::EventHandler(this, &HeadForm::HeadForm_Load);
 			this->ResourseComboBox->SelectedIndexChanged += gcnew System::EventHandler(this, &HeadForm::ResourseComboBox_Selected);
 		}
@@ -42,13 +43,13 @@ namespace COMUTL {
 private: RecordRepository^ repository;
 
 	private: System::Void HeadForm_Load(System::Object^ sender, System::EventArgs^ e) {
-		InitializeDataListBoxes();
+		UpdateDataListBoxes();
 		this->ResourseComboBox->SelectedIndex = 0;
 		repository->Save("test.utl");
 		std::cout << "asikdhasikjdhas";
 	}
 	private: System::Void ResourseComboBox_Selected(System::Object^ sender, System::EventArgs^ e) {
-		InitializeDataListBoxes();
+		UpdateDataListBoxes();
 	}
 
 	private: System::Windows::Forms::MenuStrip^ HeadMenuStrip;
@@ -656,8 +657,7 @@ private: RecordRepository^ repository;
 
 		}
 
-		void InitializeDataListBoxes() {
-
+		void UpdateDataListBoxes() {
 			array<ListBox^>^ listBoxes = gcnew array<ListBox^>{
 				this->PriceListBox,
 				this->DiscountListBox,
@@ -675,34 +675,25 @@ private: RecordRepository^ repository;
 
 			for each (ListBox ^ calb in listBoxes) calb->Items->Clear();
 
-			switch (ResourseComboBox->SelectedIndex) {
-				
-			case 0:
-				this->PriceListBox->Items->Add("Hello");
-				break;
+			PriceListBox->Items->Clear();
 
-			case 1:
-				this->DiscountListBox->Items->Add("What?");
-				break;
+			auto record = repository->GetRecord(GetSelectedRecordType());
+			if (record == nullptr) return;
 
-			case 2:
-				this->PlanTariffListBox->Items->Add("Bye");
-				break;
-
-			default:
-				break;
-			}
-
+			PriceListBox->Items->Add(record->price.ToString());
 		}
 #pragma endregion
 
 	private: System::Void AboutToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
 		MessageBox::Show("ComUtl \nVersion 1.9.1\n(c) Vadim Ivanchuk, 2025", "About programl", MessageBoxButtons::OK, MessageBoxIcon::Information);
 	}
-
+	private: ERecordType GetSelectedRecordType() {
+		return static_cast<ERecordType>(ResourseComboBox->SelectedIndex);
+	}
 	private: System::Void PersonalDataToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
-		EditPersonalDataForm^ OpenEditPersonalDataForm = gcnew EditPersonalDataForm(repository);
+		EditPersonalDataForm^ OpenEditPersonalDataForm = gcnew EditPersonalDataForm(repository, GetSelectedRecordType());
 		OpenEditPersonalDataForm->ShowDialog();
+		UpdateDataListBoxes();
 	}
 
 	private: System::Void CalculationsToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
