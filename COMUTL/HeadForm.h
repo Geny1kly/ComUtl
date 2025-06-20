@@ -171,7 +171,8 @@ namespace COMUTL {
 			});
 			this->HeadMenuStrip->Location = System::Drawing::Point(0, 0);
 			this->HeadMenuStrip->Name = L"HeadMenuStrip";
-			this->HeadMenuStrip->Size = System::Drawing::Size(737, 28);
+			this->HeadMenuStrip->Padding = System::Windows::Forms::Padding(4, 2, 0, 2);
+			this->HeadMenuStrip->Size = System::Drawing::Size(553, 24);
 			this->HeadMenuStrip->TabIndex = 0;
 			this->HeadMenuStrip->Text = L"menuStrip1";
 			// 
@@ -182,25 +183,25 @@ namespace COMUTL {
 					this->LoadToolStripMenuItem, this->ExitToolStripMenuItem
 			});
 			this->FileToolStripMenuItem->Name = L"FileToolStripMenuItem";
-			this->FileToolStripMenuItem->Size = System::Drawing::Size(46, 24);
+			this->FileToolStripMenuItem->Size = System::Drawing::Size(37, 20);
 			this->FileToolStripMenuItem->Text = L"File";
 			// 
 			// SaveToolStripMenuItem
 			// 
 			this->SaveToolStripMenuItem->Name = L"SaveToolStripMenuItem";
-			this->SaveToolStripMenuItem->Size = System::Drawing::Size(125, 26);
+			this->SaveToolStripMenuItem->Size = System::Drawing::Size(100, 22);
 			this->SaveToolStripMenuItem->Text = L"Save";
 			// 
 			// LoadToolStripMenuItem
 			// 
 			this->LoadToolStripMenuItem->Name = L"LoadToolStripMenuItem";
-			this->LoadToolStripMenuItem->Size = System::Drawing::Size(125, 26);
+			this->LoadToolStripMenuItem->Size = System::Drawing::Size(100, 22);
 			this->LoadToolStripMenuItem->Text = L"Load";
 			// 
 			// ExitToolStripMenuItem
 			// 
 			this->ExitToolStripMenuItem->Name = L"ExitToolStripMenuItem";
-			this->ExitToolStripMenuItem->Size = System::Drawing::Size(125, 26);
+			this->ExitToolStripMenuItem->Size = System::Drawing::Size(100, 22);
 			this->ExitToolStripMenuItem->Text = L"Exit";
 			// 
 			// StatsToolStripMenuItem
@@ -210,20 +211,20 @@ namespace COMUTL {
 					this->TariffPriceToolStripMenuItem
 			});
 			this->StatsToolStripMenuItem->Name = L"StatsToolStripMenuItem";
-			this->StatsToolStripMenuItem->Size = System::Drawing::Size(55, 24);
+			this->StatsToolStripMenuItem->Size = System::Drawing::Size(44, 20);
 			this->StatsToolStripMenuItem->Text = L"Stats";
 			// 
 			// CalculationsToolStripMenuItem
 			// 
 			this->CalculationsToolStripMenuItem->Name = L"CalculationsToolStripMenuItem";
-			this->CalculationsToolStripMenuItem->Size = System::Drawing::Size(224, 26);
+			this->CalculationsToolStripMenuItem->Size = System::Drawing::Size(139, 22);
 			this->CalculationsToolStripMenuItem->Text = L"Calculations";
 			this->CalculationsToolStripMenuItem->Click += gcnew System::EventHandler(this, &HeadForm::CalculationsToolStripMenuItem_Click);
 			// 
 			// TariffPriceToolStripMenuItem
 			// 
 			this->TariffPriceToolStripMenuItem->Name = L"TariffPriceToolStripMenuItem";
-			this->TariffPriceToolStripMenuItem->Size = System::Drawing::Size(224, 26);
+			this->TariffPriceToolStripMenuItem->Size = System::Drawing::Size(139, 22);
 			this->TariffPriceToolStripMenuItem->Text = L"Tariff price";
 			this->TariffPriceToolStripMenuItem->Click += gcnew System::EventHandler(this, &HeadForm::TariffPriceToolStripMenuItem_Click);
 			// 
@@ -231,20 +232,20 @@ namespace COMUTL {
 			// 
 			this->EditToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->PersonalDataToolStripMenuItem });
 			this->EditToolStripMenuItem->Name = L"EditToolStripMenuItem";
-			this->EditToolStripMenuItem->Size = System::Drawing::Size(49, 24);
+			this->EditToolStripMenuItem->Size = System::Drawing::Size(39, 20);
 			this->EditToolStripMenuItem->Text = L"Edit";
 			// 
 			// PersonalDataToolStripMenuItem
 			// 
 			this->PersonalDataToolStripMenuItem->Name = L"PersonalDataToolStripMenuItem";
-			this->PersonalDataToolStripMenuItem->Size = System::Drawing::Size(179, 26);
+			this->PersonalDataToolStripMenuItem->Size = System::Drawing::Size(143, 22);
 			this->PersonalDataToolStripMenuItem->Text = L"PersonalData";
 			this->PersonalDataToolStripMenuItem->Click += gcnew System::EventHandler(this, &HeadForm::PersonalDataToolStripMenuItem_Click);
 			// 
 			// AboutToolStripMenuItem
 			// 
 			this->AboutToolStripMenuItem->Name = L"AboutToolStripMenuItem";
-			this->AboutToolStripMenuItem->Size = System::Drawing::Size(64, 24);
+			this->AboutToolStripMenuItem->Size = System::Drawing::Size(52, 20);
 			this->AboutToolStripMenuItem->Text = L"About";
 			this->AboutToolStripMenuItem->Click += gcnew System::EventHandler(this, &HeadForm::AboutToolStripMenuItem_Click);
 			// 
@@ -257,18 +258,21 @@ namespace COMUTL {
 			this->MenuGroupBox->Controls->Add(this->IndicatorsButton);
 			this->MenuGroupBox->Controls->Add(this->ResourseLabel);
 			this->MenuGroupBox->Controls->Add(this->ResourseComboBox);
-			this->MenuGroupBox->Location = System::Drawing::Point(12, 37);
+			this->MenuGroupBox->Location = System::Drawing::Point(9, 30);
+			this->MenuGroupBox->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->MenuGroupBox->Name = L"MenuGroupBox";
-			this->MenuGroupBox->Size = System::Drawing::Size(714, 57);
+			this->MenuGroupBox->Padding = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->MenuGroupBox->Size = System::Drawing::Size(536, 46);
 			this->MenuGroupBox->TabIndex = 1;
 			this->MenuGroupBox->TabStop = false;
 			this->MenuGroupBox->Text = L"Menu";
 			// 
 			// PayButton
 			// 
-			this->PayButton->Location = System::Drawing::Point(591, 18);
+			this->PayButton->Location = System::Drawing::Point(443, 15);
+			this->PayButton->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->PayButton->Name = L"PayButton";
-			this->PayButton->Size = System::Drawing::Size(59, 26);
+			this->PayButton->Size = System::Drawing::Size(44, 21);
 			this->PayButton->TabIndex = 9;
 			this->PayButton->Text = L"Pay";
 			this->PayButton->UseVisualStyleBackColor = true;
@@ -276,26 +280,28 @@ namespace COMUTL {
 			// StatBalanceListBox
 			// 
 			this->StatBalanceListBox->FormattingEnabled = true;
-			this->StatBalanceListBox->ItemHeight = 16;
-			this->StatBalanceListBox->Location = System::Drawing::Point(484, 22);
+			this->StatBalanceListBox->Location = System::Drawing::Point(363, 18);
+			this->StatBalanceListBox->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->StatBalanceListBox->Name = L"StatBalanceListBox";
-			this->StatBalanceListBox->Size = System::Drawing::Size(101, 20);
+			this->StatBalanceListBox->Size = System::Drawing::Size(77, 17);
 			this->StatBalanceListBox->TabIndex = 8;
 			// 
 			// BalanceStatLabel
 			// 
 			this->BalanceStatLabel->AutoSize = true;
-			this->BalanceStatLabel->Location = System::Drawing::Point(368, 23);
+			this->BalanceStatLabel->Location = System::Drawing::Point(276, 19);
+			this->BalanceStatLabel->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->BalanceStatLabel->Name = L"BalanceStatLabel";
-			this->BalanceStatLabel->Size = System::Drawing::Size(110, 16);
+			this->BalanceStatLabel->Size = System::Drawing::Size(90, 13);
 			this->BalanceStatLabel->TabIndex = 7;
 			this->BalanceStatLabel->Text = L"Status of balance";
 			// 
 			// IndicatorsButton
 			// 
-			this->IndicatorsButton->Location = System::Drawing::Point(230, 18);
+			this->IndicatorsButton->Location = System::Drawing::Point(172, 15);
+			this->IndicatorsButton->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->IndicatorsButton->Name = L"IndicatorsButton";
-			this->IndicatorsButton->Size = System::Drawing::Size(75, 27);
+			this->IndicatorsButton->Size = System::Drawing::Size(56, 22);
 			this->IndicatorsButton->TabIndex = 6;
 			this->IndicatorsButton->Text = L"Indicators";
 			this->IndicatorsButton->UseVisualStyleBackColor = true;
@@ -303,9 +309,10 @@ namespace COMUTL {
 			// ResourseLabel
 			// 
 			this->ResourseLabel->AutoSize = true;
-			this->ResourseLabel->Location = System::Drawing::Point(22, 23);
+			this->ResourseLabel->Location = System::Drawing::Point(16, 19);
+			this->ResourseLabel->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->ResourseLabel->Name = L"ResourseLabel";
-			this->ResourseLabel->Size = System::Drawing::Size(109, 16);
+			this->ResourseLabel->Size = System::Drawing::Size(86, 13);
 			this->ResourseLabel->TabIndex = 6;
 			this->ResourseLabel->Text = L"Type of resourse";
 			// 
@@ -313,9 +320,10 @@ namespace COMUTL {
 			// 
 			this->ResourseComboBox->FormattingEnabled = true;
 			this->ResourseComboBox->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Gas", L"Water", L"Energy" });
-			this->ResourseComboBox->Location = System::Drawing::Point(137, 20);
+			this->ResourseComboBox->Location = System::Drawing::Point(103, 16);
+			this->ResourseComboBox->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->ResourseComboBox->Name = L"ResourseComboBox";
-			this->ResourseComboBox->Size = System::Drawing::Size(89, 24);
+			this->ResourseComboBox->Size = System::Drawing::Size(68, 21);
 			this->ResourseComboBox->TabIndex = 0;
 			// 
 			// ConditionsGroupBox
@@ -331,9 +339,11 @@ namespace COMUTL {
 			this->ConditionsGroupBox->Controls->Add(this->PlanTariffLabel);
 			this->ConditionsGroupBox->Controls->Add(this->DiscountLabel);
 			this->ConditionsGroupBox->Controls->Add(this->PriceLabel);
-			this->ConditionsGroupBox->Location = System::Drawing::Point(12, 102);
+			this->ConditionsGroupBox->Location = System::Drawing::Point(9, 83);
+			this->ConditionsGroupBox->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->ConditionsGroupBox->Name = L"ConditionsGroupBox";
-			this->ConditionsGroupBox->Size = System::Drawing::Size(334, 270);
+			this->ConditionsGroupBox->Padding = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->ConditionsGroupBox->Size = System::Drawing::Size(250, 219);
 			this->ConditionsGroupBox->TabIndex = 2;
 			this->ConditionsGroupBox->TabStop = false;
 			this->ConditionsGroupBox->Text = L"My conditions";
@@ -341,90 +351,95 @@ namespace COMUTL {
 			// SubsdiesListBox
 			// 
 			this->SubsdiesListBox->FormattingEnabled = true;
-			this->SubsdiesListBox->ItemHeight = 16;
-			this->SubsdiesListBox->Location = System::Drawing::Point(135, 229);
+			this->SubsdiesListBox->Location = System::Drawing::Point(101, 186);
+			this->SubsdiesListBox->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->SubsdiesListBox->Name = L"SubsdiesListBox";
-			this->SubsdiesListBox->Size = System::Drawing::Size(181, 20);
+			this->SubsdiesListBox->Size = System::Drawing::Size(137, 17);
 			this->SubsdiesListBox->TabIndex = 9;
 			// 
 			// TermPlanListBox
 			// 
 			this->TermPlanListBox->FormattingEnabled = true;
-			this->TermPlanListBox->ItemHeight = 16;
-			this->TermPlanListBox->Location = System::Drawing::Point(135, 177);
+			this->TermPlanListBox->Location = System::Drawing::Point(101, 144);
+			this->TermPlanListBox->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->TermPlanListBox->Name = L"TermPlanListBox";
-			this->TermPlanListBox->Size = System::Drawing::Size(181, 20);
+			this->TermPlanListBox->Size = System::Drawing::Size(137, 17);
 			this->TermPlanListBox->TabIndex = 8;
 			// 
 			// PlanTariffListBox
 			// 
 			this->PlanTariffListBox->FormattingEnabled = true;
-			this->PlanTariffListBox->ItemHeight = 16;
-			this->PlanTariffListBox->Location = System::Drawing::Point(135, 121);
+			this->PlanTariffListBox->Location = System::Drawing::Point(101, 98);
+			this->PlanTariffListBox->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->PlanTariffListBox->Name = L"PlanTariffListBox";
-			this->PlanTariffListBox->Size = System::Drawing::Size(181, 20);
+			this->PlanTariffListBox->Size = System::Drawing::Size(137, 17);
 			this->PlanTariffListBox->TabIndex = 7;
 			// 
 			// DiscountListBox
 			// 
 			this->DiscountListBox->FormattingEnabled = true;
-			this->DiscountListBox->ItemHeight = 16;
-			this->DiscountListBox->Location = System::Drawing::Point(135, 70);
+			this->DiscountListBox->Location = System::Drawing::Point(101, 57);
+			this->DiscountListBox->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->DiscountListBox->Name = L"DiscountListBox";
-			this->DiscountListBox->Size = System::Drawing::Size(181, 20);
+			this->DiscountListBox->Size = System::Drawing::Size(137, 17);
 			this->DiscountListBox->TabIndex = 6;
 			// 
 			// PriceListBox
 			// 
 			this->PriceListBox->FormattingEnabled = true;
-			this->PriceListBox->ItemHeight = 16;
-			this->PriceListBox->Location = System::Drawing::Point(135, 21);
+			this->PriceListBox->Location = System::Drawing::Point(101, 17);
+			this->PriceListBox->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->PriceListBox->Name = L"PriceListBox";
-			this->PriceListBox->Size = System::Drawing::Size(181, 20);
+			this->PriceListBox->Size = System::Drawing::Size(137, 17);
 			this->PriceListBox->TabIndex = 5;
 			// 
 			// SubdiesLabel
 			// 
 			this->SubdiesLabel->AutoSize = true;
-			this->SubdiesLabel->Location = System::Drawing::Point(22, 233);
+			this->SubdiesLabel->Location = System::Drawing::Point(16, 189);
+			this->SubdiesLabel->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->SubdiesLabel->Name = L"SubdiesLabel";
-			this->SubdiesLabel->Size = System::Drawing::Size(67, 16);
+			this->SubdiesLabel->Size = System::Drawing::Size(52, 13);
 			this->SubdiesLabel->TabIndex = 4;
 			this->SubdiesLabel->Text = L"Subsidies";
 			// 
 			// TermPlanLabel
 			// 
 			this->TermPlanLabel->AutoSize = true;
-			this->TermPlanLabel->Location = System::Drawing::Point(22, 181);
+			this->TermPlanLabel->Location = System::Drawing::Point(16, 147);
+			this->TermPlanLabel->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->TermPlanLabel->Name = L"TermPlanLabel";
-			this->TermPlanLabel->Size = System::Drawing::Size(82, 16);
+			this->TermPlanLabel->Size = System::Drawing::Size(66, 13);
 			this->TermPlanLabel->TabIndex = 3;
 			this->TermPlanLabel->Text = L"Term of plan";
 			// 
 			// PlanTariffLabel
 			// 
 			this->PlanTariffLabel->AutoSize = true;
-			this->PlanTariffLabel->Location = System::Drawing::Point(22, 125);
+			this->PlanTariffLabel->Location = System::Drawing::Point(16, 102);
+			this->PlanTariffLabel->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->PlanTariffLabel->Name = L"PlanTariffLabel";
-			this->PlanTariffLabel->Size = System::Drawing::Size(75, 16);
+			this->PlanTariffLabel->Size = System::Drawing::Size(63, 13);
 			this->PlanTariffLabel->TabIndex = 2;
 			this->PlanTariffLabel->Text = L"Plan of tariff";
 			// 
 			// DiscountLabel
 			// 
 			this->DiscountLabel->AutoSize = true;
-			this->DiscountLabel->Location = System::Drawing::Point(22, 74);
+			this->DiscountLabel->Location = System::Drawing::Point(16, 60);
+			this->DiscountLabel->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->DiscountLabel->Name = L"DiscountLabel";
-			this->DiscountLabel->Size = System::Drawing::Size(59, 16);
+			this->DiscountLabel->Size = System::Drawing::Size(49, 13);
 			this->DiscountLabel->TabIndex = 1;
 			this->DiscountLabel->Text = L"Discount";
 			// 
 			// PriceLabel
 			// 
 			this->PriceLabel->AutoSize = true;
-			this->PriceLabel->Location = System::Drawing::Point(22, 29);
+			this->PriceLabel->Location = System::Drawing::Point(16, 24);
+			this->PriceLabel->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->PriceLabel->Name = L"PriceLabel";
-			this->PriceLabel->Size = System::Drawing::Size(38, 16);
+			this->PriceLabel->Size = System::Drawing::Size(31, 13);
 			this->PriceLabel->TabIndex = 0;
 			this->PriceLabel->Text = L"Price";
 			// 
@@ -435,9 +450,11 @@ namespace COMUTL {
 			this->InfoGroupBox->Controls->Add(this->OwnerListBox);
 			this->InfoGroupBox->Controls->Add(this->EISCodeLabel);
 			this->InfoGroupBox->Controls->Add(this->OwnerLabel);
-			this->InfoGroupBox->Location = System::Drawing::Point(357, 102);
+			this->InfoGroupBox->Location = System::Drawing::Point(268, 83);
+			this->InfoGroupBox->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->InfoGroupBox->Name = L"InfoGroupBox";
-			this->InfoGroupBox->Size = System::Drawing::Size(369, 95);
+			this->InfoGroupBox->Padding = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->InfoGroupBox->Size = System::Drawing::Size(277, 77);
 			this->InfoGroupBox->TabIndex = 3;
 			this->InfoGroupBox->TabStop = false;
 			this->InfoGroupBox->Text = L"My info";
@@ -445,36 +462,38 @@ namespace COMUTL {
 			// EISCodeListBox
 			// 
 			this->EISCodeListBox->FormattingEnabled = true;
-			this->EISCodeListBox->ItemHeight = 16;
-			this->EISCodeListBox->Location = System::Drawing::Point(155, 63);
+			this->EISCodeListBox->Location = System::Drawing::Point(116, 51);
+			this->EISCodeListBox->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->EISCodeListBox->Name = L"EISCodeListBox";
-			this->EISCodeListBox->Size = System::Drawing::Size(186, 20);
+			this->EISCodeListBox->Size = System::Drawing::Size(140, 17);
 			this->EISCodeListBox->TabIndex = 3;
 			// 
 			// OwnerListBox
 			// 
 			this->OwnerListBox->FormattingEnabled = true;
-			this->OwnerListBox->ItemHeight = 16;
-			this->OwnerListBox->Location = System::Drawing::Point(155, 25);
+			this->OwnerListBox->Location = System::Drawing::Point(116, 20);
+			this->OwnerListBox->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->OwnerListBox->Name = L"OwnerListBox";
-			this->OwnerListBox->Size = System::Drawing::Size(186, 20);
+			this->OwnerListBox->Size = System::Drawing::Size(140, 17);
 			this->OwnerListBox->TabIndex = 2;
 			// 
 			// EISCodeLabel
 			// 
 			this->EISCodeLabel->AutoSize = true;
-			this->EISCodeLabel->Location = System::Drawing::Point(19, 67);
+			this->EISCodeLabel->Location = System::Drawing::Point(14, 54);
+			this->EISCodeLabel->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->EISCodeLabel->Name = L"EISCodeLabel";
-			this->EISCodeLabel->Size = System::Drawing::Size(65, 16);
+			this->EISCodeLabel->Size = System::Drawing::Size(52, 13);
 			this->EISCodeLabel->TabIndex = 1;
 			this->EISCodeLabel->Text = L"EIS-Code";
 			// 
 			// OwnerLabel
 			// 
 			this->OwnerLabel->AutoSize = true;
-			this->OwnerLabel->Location = System::Drawing::Point(18, 29);
+			this->OwnerLabel->Location = System::Drawing::Point(14, 24);
+			this->OwnerLabel->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->OwnerLabel->Name = L"OwnerLabel";
-			this->OwnerLabel->Size = System::Drawing::Size(109, 16);
+			this->OwnerLabel->Size = System::Drawing::Size(92, 13);
 			this->OwnerLabel->TabIndex = 0;
 			this->OwnerLabel->Text = L"Owner of account";
 			// 
@@ -489,9 +508,11 @@ namespace COMUTL {
 			this->AddressGroupBox->Controls->Add(this->AddressStreetLabel);
 			this->AddressGroupBox->Controls->Add(this->AddressCityLabel);
 			this->AddressGroupBox->Controls->Add(this->AddressOblastLabel);
-			this->AddressGroupBox->Location = System::Drawing::Point(357, 206);
+			this->AddressGroupBox->Location = System::Drawing::Point(268, 167);
+			this->AddressGroupBox->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->AddressGroupBox->Name = L"AddressGroupBox";
-			this->AddressGroupBox->Size = System::Drawing::Size(369, 166);
+			this->AddressGroupBox->Padding = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->AddressGroupBox->Size = System::Drawing::Size(277, 135);
 			this->AddressGroupBox->TabIndex = 4;
 			this->AddressGroupBox->TabStop = false;
 			this->AddressGroupBox->Text = L"Address";
@@ -499,72 +520,76 @@ namespace COMUTL {
 			// AddressHomeListBox
 			// 
 			this->AddressHomeListBox->FormattingEnabled = true;
-			this->AddressHomeListBox->ItemHeight = 16;
-			this->AddressHomeListBox->Location = System::Drawing::Point(155, 130);
+			this->AddressHomeListBox->Location = System::Drawing::Point(116, 106);
+			this->AddressHomeListBox->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->AddressHomeListBox->Name = L"AddressHomeListBox";
-			this->AddressHomeListBox->Size = System::Drawing::Size(186, 20);
+			this->AddressHomeListBox->Size = System::Drawing::Size(140, 17);
 			this->AddressHomeListBox->TabIndex = 7;
 			// 
 			// AddressStreetListBox
 			// 
 			this->AddressStreetListBox->FormattingEnabled = true;
-			this->AddressStreetListBox->ItemHeight = 16;
-			this->AddressStreetListBox->Location = System::Drawing::Point(155, 91);
+			this->AddressStreetListBox->Location = System::Drawing::Point(116, 74);
+			this->AddressStreetListBox->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->AddressStreetListBox->Name = L"AddressStreetListBox";
-			this->AddressStreetListBox->Size = System::Drawing::Size(186, 20);
+			this->AddressStreetListBox->Size = System::Drawing::Size(140, 17);
 			this->AddressStreetListBox->TabIndex = 6;
 			// 
 			// AddressCityListBox
 			// 
 			this->AddressCityListBox->FormattingEnabled = true;
-			this->AddressCityListBox->ItemHeight = 16;
-			this->AddressCityListBox->Location = System::Drawing::Point(155, 56);
+			this->AddressCityListBox->Location = System::Drawing::Point(116, 46);
+			this->AddressCityListBox->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->AddressCityListBox->Name = L"AddressCityListBox";
-			this->AddressCityListBox->Size = System::Drawing::Size(186, 20);
+			this->AddressCityListBox->Size = System::Drawing::Size(140, 17);
 			this->AddressCityListBox->TabIndex = 5;
 			// 
 			// AddressOblastListBox
 			// 
 			this->AddressOblastListBox->FormattingEnabled = true;
-			this->AddressOblastListBox->ItemHeight = 16;
-			this->AddressOblastListBox->Location = System::Drawing::Point(155, 21);
+			this->AddressOblastListBox->Location = System::Drawing::Point(116, 17);
+			this->AddressOblastListBox->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->AddressOblastListBox->Name = L"AddressOblastListBox";
-			this->AddressOblastListBox->Size = System::Drawing::Size(186, 20);
+			this->AddressOblastListBox->Size = System::Drawing::Size(140, 17);
 			this->AddressOblastListBox->TabIndex = 4;
 			// 
 			// AddressHomeLabel
 			// 
 			this->AddressHomeLabel->AutoSize = true;
-			this->AddressHomeLabel->Location = System::Drawing::Point(22, 134);
+			this->AddressHomeLabel->Location = System::Drawing::Point(16, 109);
+			this->AddressHomeLabel->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->AddressHomeLabel->Name = L"AddressHomeLabel";
-			this->AddressHomeLabel->Size = System::Drawing::Size(44, 16);
+			this->AddressHomeLabel->Size = System::Drawing::Size(35, 13);
 			this->AddressHomeLabel->TabIndex = 3;
 			this->AddressHomeLabel->Text = L"Home";
 			// 
 			// AddressStreetLabel
 			// 
 			this->AddressStreetLabel->AutoSize = true;
-			this->AddressStreetLabel->Location = System::Drawing::Point(22, 95);
+			this->AddressStreetLabel->Location = System::Drawing::Point(16, 77);
+			this->AddressStreetLabel->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->AddressStreetLabel->Name = L"AddressStreetLabel";
-			this->AddressStreetLabel->Size = System::Drawing::Size(42, 16);
+			this->AddressStreetLabel->Size = System::Drawing::Size(35, 13);
 			this->AddressStreetLabel->TabIndex = 2;
 			this->AddressStreetLabel->Text = L"Street";
 			// 
 			// AddressCityLabel
 			// 
 			this->AddressCityLabel->AutoSize = true;
-			this->AddressCityLabel->Location = System::Drawing::Point(22, 60);
+			this->AddressCityLabel->Location = System::Drawing::Point(16, 49);
+			this->AddressCityLabel->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->AddressCityLabel->Name = L"AddressCityLabel";
-			this->AddressCityLabel->Size = System::Drawing::Size(29, 16);
+			this->AddressCityLabel->Size = System::Drawing::Size(24, 13);
 			this->AddressCityLabel->TabIndex = 1;
 			this->AddressCityLabel->Text = L"City";
 			// 
 			// AddressOblastLabel
 			// 
 			this->AddressOblastLabel->AutoSize = true;
-			this->AddressOblastLabel->Location = System::Drawing::Point(22, 25);
+			this->AddressOblastLabel->Location = System::Drawing::Point(16, 20);
+			this->AddressOblastLabel->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->AddressOblastLabel->Name = L"AddressOblastLabel";
-			this->AddressOblastLabel->Size = System::Drawing::Size(46, 16);
+			this->AddressOblastLabel->Size = System::Drawing::Size(37, 13);
 			this->AddressOblastLabel->TabIndex = 0;
 			this->AddressOblastLabel->Text = L"Oblast";
 			// 
@@ -573,9 +598,10 @@ namespace COMUTL {
 			this->statusStrip1->BackColor = System::Drawing::SystemColors::ScrollBar;
 			this->statusStrip1->ImageScalingSize = System::Drawing::Size(20, 20);
 			this->statusStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->toolStripStatusLabel1 });
-			this->statusStrip1->Location = System::Drawing::Point(0, 380);
+			this->statusStrip1->Location = System::Drawing::Point(0, 308);
 			this->statusStrip1->Name = L"statusStrip1";
-			this->statusStrip1->Size = System::Drawing::Size(737, 26);
+			this->statusStrip1->Padding = System::Windows::Forms::Padding(1, 0, 10, 0);
+			this->statusStrip1->Size = System::Drawing::Size(553, 22);
 			this->statusStrip1->TabIndex = 5;
 			this->statusStrip1->Text = L"statusStrip1";
 			// 
@@ -583,15 +609,15 @@ namespace COMUTL {
 			// 
 			this->toolStripStatusLabel1->BackColor = System::Drawing::SystemColors::Control;
 			this->toolStripStatusLabel1->Name = L"toolStripStatusLabel1";
-			this->toolStripStatusLabel1->Size = System::Drawing::Size(117, 20);
+			this->toolStripStatusLabel1->Size = System::Drawing::Size(93, 17);
 			this->toolStripStatusLabel1->Text = L"Made in Ukraine";
 			// 
 			// HeadForm
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
+			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::ControlDarkDark;
-			this->ClientSize = System::Drawing::Size(737, 406);
+			this->ClientSize = System::Drawing::Size(553, 330);
 			this->Controls->Add(this->statusStrip1);
 			this->Controls->Add(this->AddressGroupBox);
 			this->Controls->Add(this->InfoGroupBox);
@@ -600,9 +626,11 @@ namespace COMUTL {
 			this->Controls->Add(this->HeadMenuStrip);
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
 			this->MainMenuStrip = this->HeadMenuStrip;
+			this->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->MaximizeBox = false;
 			this->Name = L"HeadForm";
 			this->Text = L"ComUtl";
+			this->Load += gcnew System::EventHandler(this, &HeadForm::HeadForm_Load_1);
 			this->HeadMenuStrip->ResumeLayout(false);
 			this->HeadMenuStrip->PerformLayout();
 			this->MenuGroupBox->ResumeLayout(false);
@@ -678,5 +706,7 @@ namespace COMUTL {
 		TariffPriceForm^ OpenTariffPriceForm = gcnew TariffPriceForm();
 		OpenTariffPriceForm->ShowDialog();
 	}
+private: System::Void HeadForm_Load_1(System::Object^ sender, System::EventArgs^ e) {
+}
 };
 }
