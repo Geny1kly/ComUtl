@@ -7,7 +7,7 @@ RecordRepository::RecordRepository()
 {
 	this->records = gcnew List<HeadRecordForm^>();
 	this->records->Add(gcnew HeadRecordForm(
-		232, 3, PlanTarif::Monthly, DateTime::Now, false, "asd",
+		0, 0, PlanTarif::None, DateTime::Now, false, "asd",
 		"asdasdasjdhasjdh", "khmeelee", "krasyliv", "centalna", "wash", 1
 	));
 }
