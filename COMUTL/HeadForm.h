@@ -1,3 +1,4 @@
+#include "IndicatorsForm.h"
 #include "TariffPriceForm.h"
 #include "CalculationsForm.h"
 #include "EditPersonalDataForm.h"
@@ -314,6 +315,7 @@ private: TariffRepository^ tariffs;
 			this->IndicatorsButton->TabIndex = 6;
 			this->IndicatorsButton->Text = L"Indicators";
 			this->IndicatorsButton->UseVisualStyleBackColor = true;
+			this->IndicatorsButton->Click += gcnew System::EventHandler(this, &HeadForm::IndicatorsButton_Click);
 			// 
 			// ResourseLabel
 			// 
@@ -732,6 +734,10 @@ private: TariffRepository^ tariffs;
 	private: System::Void HeadMenuStrip_ItemClicked(System::Object^ sender, System::Windows::Forms::ToolStripItemClickedEventArgs^ e) {
 	}
 	private: System::Void EditToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+	}
+	private: System::Void IndicatorsButton_Click(System::Object^ sender, System::EventArgs^ e) {
+		IndicatorsForm^ OpenInicatorsForm = gcnew IndicatorsForm();
+		OpenInicatorsForm->ShowDialog();
 	}
 };
 }

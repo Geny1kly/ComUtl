@@ -271,11 +271,11 @@ namespace COMUTL {
 			this->EditInfoGroupBox->Controls->Add(this->EISCodeTextBox);
 			this->EditInfoGroupBox->Controls->Add(this->FirstNameTextBox);
 			this->EditInfoGroupBox->Controls->Add(this->FirstNameLabel);
-			this->EditInfoGroupBox->Location = System::Drawing::Point(468, 12);
+			this->EditInfoGroupBox->Location = System::Drawing::Point(465, 12);
 			this->EditInfoGroupBox->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->EditInfoGroupBox->Name = L"EditInfoGroupBox";
 			this->EditInfoGroupBox->Padding = System::Windows::Forms::Padding(3, 2, 3, 2);
-			this->EditInfoGroupBox->Size = System::Drawing::Size(155, 297);
+			this->EditInfoGroupBox->Size = System::Drawing::Size(158, 297);
 			this->EditInfoGroupBox->TabIndex = 1;
 			this->EditInfoGroupBox->TabStop = false;
 			this->EditInfoGroupBox->Text = L"Personal info";
@@ -362,11 +362,11 @@ namespace COMUTL {
 			this->EditAddressGroupBox->Controls->Add(this->StreetTextBox);
 			this->EditAddressGroupBox->Controls->Add(this->CityTextBox);
 			this->EditAddressGroupBox->Controls->Add(this->OblastTextBox);
-			this->EditAddressGroupBox->Location = System::Drawing::Point(12, 196);
+			this->EditAddressGroupBox->Location = System::Drawing::Point(12, 191);
 			this->EditAddressGroupBox->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->EditAddressGroupBox->Name = L"EditAddressGroupBox";
 			this->EditAddressGroupBox->Padding = System::Windows::Forms::Padding(3, 2, 3, 2);
-			this->EditAddressGroupBox->Size = System::Drawing::Size(443, 113);
+			this->EditAddressGroupBox->Size = System::Drawing::Size(443, 118);
 			this->EditAddressGroupBox->TabIndex = 2;
 			this->EditAddressGroupBox->TabStop = false;
 			this->EditAddressGroupBox->Text = L"Address";
