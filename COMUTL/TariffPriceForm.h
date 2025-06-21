@@ -36,7 +36,6 @@ namespace COMUTL {
 		TariffPriceForm(void)
 		{
 			InitializeComponent();
-			InitializeTariffs();
 			//
 			//TODO: Add the constructor code here
 			//
@@ -271,147 +270,11 @@ namespace COMUTL {
 
 		}
 
-		static List<TariffRecord^>^ tariffs = gcnew List<TariffRecord^>();
-
-		public:static void LoadTariffs() {
-			std::ifstream InFile("file_tariffs");
-			if (!InFile.is_open()) {
-				return;
-			}
-
-			tariffs->Clear();
-
-			int count = 0;
-			InFile >> count;
-
-			if (InFile.fail() || count < 0) {
-				InFile.close();
-				return;
-			}
-
-			InFile.ignore((std::numeric_limits<std::streamsize>::max)(), '\n');
-
-			for (int i = 0; i < count; ++i) {
-				std::string s_date_str;
-				double montlyPriceVal;
-				double yearlyPriceVal;
-
-				if (!std::getline(InFile, s_date_str)) {
-					break;
-				}
-
-				InFile >> montlyPriceVal;
-				if (InFile.fail()) {
-					break;
-				}
-
-				InFile.ignore((std::numeric_limits<std::streamsize>::max)(), '\n');
-
-				InFile >> yearlyPriceVal;
-				if (InFile.fail()) {
-					break;
-				}
-
-				InFile.ignore((std::numeric_limits<std::streamsize>::max)(), '\n');
-
-				String^ date_sys_str = msclr::interop::marshal_as<String^>(s_date_str);
-				tariffs->Add(gcnew TariffRecord(date_sys_str, montlyPriceVal, yearlyPriceVal));
-			}
-			InFile.close();
-		}
-
-		static void SaveTariffs() {
-			std::ofstream OutFile("file_tariffs");
-			if (!OutFile.is_open()) {
-				return;
-			}
-
-			OutFile << tariffs->Count << std::endl;
-
-			for (int i = 0; i < tariffs->Count; ++i) {
-				OutFile << msclr::interop::marshal_as<std::string>(tariffs[i]->date) << std::endl;
-				OutFile << record.montlyPrice << std::endl;
-				OutFile << record.yearlyPrice << std::endl;
-			}
-			OutFile.close();
-		}
-
-		static void InitializeTariffs() {
-			LoadTariffs();
-		}
-
 
 #pragma endregion
 	private: System::Void ShowDataButton_Click(System::Object^ sender, System::EventArgs^ e) {
-
-		this->TariffPriceChart->Series->Clear();
-		this->TariffPriceChart->ChartAreas->Clear();
-		this->TariffPriceDataGridView->Columns->Clear();
-		this->TariffPriceDataGridView->Rows->Clear();
-
-		auto area = gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea("MainArea");
-		this->TariffPriceChart->ChartAreas->Add(area);
-
-		auto seriesYearly = gcnew System::Windows::Forms::DataVisualization::Charting::Series("Yearly");
-		seriesYearly->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Line;
-		seriesYearly->Color = System::Drawing::Color::Green;
-		seriesYearly->MarkerStyle = MarkerStyle::Diamond;
-		seriesYearly->BorderWidth = 3;
-
-		auto seriesMontly = gcnew System::Windows::Forms::DataVisualization::Charting::Series("Montly");
-		seriesMontly->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Line;
-		seriesMontly->Color = System::Drawing::Color::Blue;
-		seriesMontly->MarkerStyle = MarkerStyle::Circle;
-		seriesMontly->BorderWidth = 1;
-
-		for (int i = 0; i < tariffs->Count; i++) {
-			String^ DateStr = gcnew System::String(tariffs[i].date);
-			seriesMontly->Points->AddXY(DateStr, tariffs[i].montlyPrice);
-
-			if (tariffs[i].yearlyPrice > 0) seriesYearly->Points->AddXY(DateStr, tariffs[i].yearlyPrice);
-		}
-
-		this->TariffPriceChart->Series->Add(seriesMontly);
-		this->TariffPriceChart->Series->Add(seriesYearly);
-
-		this->TariffPriceDataGridView->ColumnCount = 3;
-		this->TariffPriceDataGridView->Columns[0]->Name = "Date";
-		this->TariffPriceDataGridView->Columns[1]->Name = "Montly tariff";
-		this->TariffPriceDataGridView->Columns[2]->Name = "Yearly tariff";
-
-		for (int i = 0; i < tariffs->Count; i++) {
-			this->TariffPriceDataGridView->Rows->Add(gcnew System::String(tariffs[i].date),
-				tariffs[i].montlyPrice.ToString("F0"),
-				tariffs[i].yearlyPrice > 0 ? tariffs[i].yearlyPrice.ToString("F0") : "-");
-		}
 	}
 	private: System::Void AddPriceButton_Click(System::Object^ sender, System::EventArgs^ e) {
-		TariffRecord tariff;
-
-		auto monthNumber = MonthComboBox->SelectedIndex + 1;
-
-		tariff.montlyPrice = Convert::ToDouble(MontlyPriceTextBox->Text);
-		tariff.date = "01.";
-
-		if (monthNumber < 10) {
-			tariff.date += "0";
-		}
-		tariff.date += monthNumber.ToString();
-		tariff.date += "." + YearComboBox->Text;
-
-		TariffRecord item;
-
-		for (int i = 0; i < tariffs->Count; i++) {
-			item = tariffs[i];
-			
-			if (item.date == tariff.date) {
-				item.montlyPrice = tariff.montlyPrice;
-				item.yearlyPrice = tariff.yearlyPrice;
-				tariffs[i] = item;
-				return;
-			}
-		}
-		tariffs->Add(tariff);
 	}
 };
 }
