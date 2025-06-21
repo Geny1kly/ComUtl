@@ -9,6 +9,7 @@ public:
 	double montlyPrice;
 	double yearlyPrice;
 
+	TariffRecord() {}
 	TariffRecord(DateTime^ initialDate, double initialMontlyPrice, double initialYearlyPrice) {
 		date = initialDate;
 		montlyPrice = initialMontlyPrice;

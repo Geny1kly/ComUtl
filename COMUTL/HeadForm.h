@@ -22,10 +22,12 @@ namespace COMUTL {
 		HeadForm(void)
 		{
 			InitializeComponent();
-			this->repository = gcnew RecordRepository();
-			repository->Load("test.utl");
+			this->records = gcnew RecordRepository();
+			this->tariffs = gcnew TariffRepository();
 			this->Load += gcnew System::EventHandler(this, &HeadForm::HeadForm_Load);
 			this->ResourseComboBox->SelectedIndexChanged += gcnew System::EventHandler(this, &HeadForm::ResourseComboBox_Selected);
+
+			tariffs->Load();
 		}
 
 	protected:
@@ -39,12 +41,12 @@ namespace COMUTL {
 				delete components;
 			}
 		}
-private: RecordRepository^ repository;
+private: RecordRepository^ records;
+private: TariffRepository^ tariffs;
 
 	private: System::Void HeadForm_Load(System::Object^ sender, System::EventArgs^ e) {
 		UpdateDataListBoxes();
 		this->ResourseComboBox->SelectedIndex = 0;
-		repository->Save("test.utl");
 	}
 	private: System::Void ResourseComboBox_Selected(System::Object^ sender, System::EventArgs^ e) {
 		UpdateDataListBoxes();
@@ -673,7 +675,7 @@ private: RecordRepository^ repository;
 
 			for each (ListBox ^ calb in listBoxes) calb->Items->Clear();
 
-			auto record = repository->GetRecord(GetSelectedRecordType());
+			auto record = records->GetRecord(GetSelectedRecordType());
 			if (record == nullptr) return;
 
 			PriceListBox->Items->Add(record->price.ToString());
@@ -709,7 +711,7 @@ private: RecordRepository^ repository;
 		return static_cast<ERecordType>(ResourseComboBox->SelectedIndex);
 	}
 	private: System::Void PersonalDataToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
-		EditPersonalDataForm^ OpenEditPersonalDataForm = gcnew EditPersonalDataForm(repository, GetSelectedRecordType());
+		EditPersonalDataForm^ OpenEditPersonalDataForm = gcnew EditPersonalDataForm(records, GetSelectedRecordType());
 		OpenEditPersonalDataForm->ShowDialog();
 		UpdateDataListBoxes();
 		//repository->Save("prekol");
@@ -721,7 +723,7 @@ private: RecordRepository^ repository;
 	}
 
 	private: System::Void TariffPriceToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
-		TariffPriceForm^ OpenTariffPriceForm = gcnew TariffPriceForm();
+		TariffPriceForm^ OpenTariffPriceForm = gcnew TariffPriceForm(tariffs);
 		OpenTariffPriceForm->ShowDialog();
 	}
 
