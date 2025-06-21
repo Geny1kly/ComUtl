@@ -79,9 +79,9 @@ namespace COMUTL {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea1 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
-			System::Windows::Forms::DataVisualization::Charting::Legend^ legend1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
-			System::Windows::Forms::DataVisualization::Charting::Series^ series1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea2 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
+			System::Windows::Forms::DataVisualization::Charting::Legend^ legend2 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
+			System::Windows::Forms::DataVisualization::Charting::Series^ series2 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
 			this->TariffPriceChart = (gcnew System::Windows::Forms::DataVisualization::Charting::Chart());
 			this->TariffPriceMenuGroupBox = (gcnew System::Windows::Forms::GroupBox());
 			this->button1 = (gcnew System::Windows::Forms::Button());
@@ -102,18 +102,18 @@ namespace COMUTL {
 			// 
 			// TariffPriceChart
 			// 
-			chartArea1->Name = L"ChartArea1";
-			this->TariffPriceChart->ChartAreas->Add(chartArea1);
-			legend1->Name = L"Legend1";
-			this->TariffPriceChart->Legends->Add(legend1);
+			chartArea2->Name = L"ChartArea1";
+			this->TariffPriceChart->ChartAreas->Add(chartArea2);
+			legend2->Name = L"Legend1";
+			this->TariffPriceChart->Legends->Add(legend2);
 			this->TariffPriceChart->Location = System::Drawing::Point(9, 10);
 			this->TariffPriceChart->Margin = System::Windows::Forms::Padding(2);
 			this->TariffPriceChart->Name = L"TariffPriceChart";
 			this->TariffPriceChart->Palette = System::Windows::Forms::DataVisualization::Charting::ChartColorPalette::Pastel;
-			series1->ChartArea = L"ChartArea1";
-			series1->Legend = L"Legend1";
-			series1->Name = L"Series1";
-			this->TariffPriceChart->Series->Add(series1);
+			series2->ChartArea = L"ChartArea1";
+			series2->Legend = L"Legend1";
+			series2->Name = L"Series1";
+			this->TariffPriceChart->Series->Add(series2);
 			this->TariffPriceChart->Size = System::Drawing::Size(440, 265);
 			this->TariffPriceChart->TabIndex = 0;
 			this->TariffPriceChart->Text = L"TariffPriceChart";
@@ -183,6 +183,10 @@ namespace COMUTL {
 			// YearComboBox
 			// 
 			this->YearComboBox->FormattingEnabled = true;
+			this->YearComboBox->Items->AddRange(gcnew cli::array< System::Object^  >(9) {
+				L"2019", L"2020", L"2021", L"2022", L"2023",
+					L"2024", L"2025", L"2026", L"2027"
+			});
 			this->YearComboBox->Location = System::Drawing::Point(78, 125);
 			this->YearComboBox->Margin = System::Windows::Forms::Padding(2);
 			this->YearComboBox->Name = L"YearComboBox";
@@ -193,8 +197,8 @@ namespace COMUTL {
 			// 
 			this->MonthComboBox->FormattingEnabled = true;
 			this->MonthComboBox->Items->AddRange(gcnew cli::array< System::Object^  >(12) {
-				L"1", L"2", L"3", L"4", L"5", L"6", L"7", L"8",
-					L"9", L"10", L"11", L"12"
+				L"January", L"February", L"March", L"April",
+					L"May", L"June", L"July", L"August", L"September", L"October", L"November", L"December"
 			});
 			this->MonthComboBox->Location = System::Drawing::Point(78, 90);
 			this->MonthComboBox->Margin = System::Windows::Forms::Padding(2);
@@ -274,31 +278,48 @@ namespace COMUTL {
 
 #pragma endregion
 	String^ GetVeryShortDateString(TariffRecord^ record) {
-		return String::Format("{2}{0}.{1}", record->date->Month, record->date->Year, (Char)(record->date->Month < 10 ? '0' : '\0'));
+		return String::Format("{2}{0}.{1}", record->date->Month, record->date->Year, record->date->Month < 10 ? "0" : "");
 	}
 	void FillWithRecord(TariffRecord^ record) {
 		MontlyPriceTextBox->Text = record->montlyPrice.ToString();
 		YearlyPriceTextBox->Text = record->yearlyPrice.ToString();
+
+		YearComboBox->Text = record->date->Year.ToString();
+		MonthComboBox->SelectedIndex = record->date->Month - 1;
+	}
+	void AddDisplayForRecord(TariffRecord^ record) {
+		this->TariffPriceDataGridView->Rows->Add(
+			GetVeryShortDateString(record),
+			record->montlyPrice.ToString("F0"),
+			record->yearlyPrice > 0 ? record->yearlyPrice.ToString("F0") : "-"
+		);
+
+		monthlySeries->Points->AddXY(GetVeryShortDateString(record), record->montlyPrice);
+		if (record->yearlyPrice > 0) yearlySeries->Points->AddXY(GetVeryShortDateString(record), record->yearlyPrice);
 	}
 	void RefreshRecord(TariffRecord^ record) {
 		if (isRefreshing) return;
 		isRefreshing = true;
 
 		int i;
-		for (i = 0; i < TariffPriceDataGridView->Rows->Count; i++) {
+		for (i = 0; i < TariffPriceDataGridView->Rows->Count - 1; i++) {
 			if (TariffPriceDataGridView->Rows[i]->Cells[0]->Value->ToString() == GetVeryShortDateString(record)) {
 				TariffPriceDataGridView->Rows[i]->Cells[1]->Value = record->montlyPrice.ToString("F0");
 				TariffPriceDataGridView->Rows[i]->Cells[2]->Value = record->yearlyPrice.ToString("F0");
 				break;
 			}
 		}
-		if (i >= TariffPriceDataGridView->Rows->Count) {
+		if (i >= TariffPriceDataGridView->Rows->Count - 1) {
+			AddDisplayForRecord(record);
+
 			isRefreshing = false;
 			return;
 		}
-		
+
 		monthlySeries->Points[i]->YValues[0] = record->montlyPrice;
 		yearlySeries->Points[i]->YValues[0] = record->yearlyPrice;
+
+		this->TariffPriceChart->Refresh();
 
 		isRefreshing = false;
 	}
@@ -325,12 +346,6 @@ namespace COMUTL {
 
 		auto records = tariffs->GetRecords();
 
-		for (int i = 0; i < records->Count; i++) {
-			monthlySeries->Points->AddXY(records[i]->date->ToShortDateString(), records[i]->montlyPrice);
-
-			if (records[i]->yearlyPrice > 0) yearlySeries->Points->AddXY(records[i]->date->ToShortDateString(), records[i]->yearlyPrice);
-		}
-
 		this->TariffPriceChart->Series->Add(monthlySeries);
 		this->TariffPriceChart->Series->Add(yearlySeries);
 
@@ -344,10 +359,7 @@ namespace COMUTL {
 		}
 
 		for (int i = 0; i < records->Count; i++) {
-			this->TariffPriceDataGridView->Rows->Add(
-				String::Format("{2}{0}.{1}", records[i]->date->Month, records[i]->date->Year, (Char)(records[i]->date->Month < 10 ? '0' : '\0')),
-				records[i]->montlyPrice.ToString("F0"),
-				records[i]->yearlyPrice > 0 ? records[i]->yearlyPrice.ToString("F0") : "-");
+			AddDisplayForRecord(records[i]);
 		}
 
 		auto selectedDateParts = TariffPriceDataGridView->CurrentRow->Cells[0]->Value->ToString()->Split('.');
@@ -364,7 +376,7 @@ namespace COMUTL {
 
 		if (tariff == nullptr) {
 			tariff = gcnew TariffRecord();
-			//tariffs->GetRecords()->Add(tariff);
+			tariffs->GetRecords()->Add(tariff);
 		}
 
 		tariff->montlyPrice = Convert::ToDouble(MontlyPriceTextBox->Text);
@@ -379,6 +391,14 @@ private: System::Void TariffPriceForm_Load(System::Object^ sender, System::Event
 	InitData();
 }
 private: System::Void TariffPriceDataGridView_CurrentCellChanged(System::Object^ sender, System::EventArgs^ e) {
+	auto selectedDateParts = TariffPriceDataGridView->CurrentRow->Cells[0]->Value->ToString()->Split('.');
+
+	auto selectedRecord = tariffs->GetRecord(Int32::Parse(selectedDateParts[0]), Int32::Parse(selectedDateParts[1]));
+	if (selectedRecord == nullptr) {
+		return;
+	}
+
+	FillWithRecord(selectedRecord);
 }
 };
 }
