@@ -46,7 +46,6 @@ private: RecordRepository^ repository;
 		UpdateDataListBoxes();
 		this->ResourseComboBox->SelectedIndex = 0;
 		repository->Save("test.utl");
-		std::cout << "asikdhasikjdhas";
 	}
 	private: System::Void ResourseComboBox_Selected(System::Object^ sender, System::EventArgs^ e) {
 		UpdateDataListBoxes();
@@ -705,11 +704,12 @@ private: RecordRepository^ repository;
 		TariffPriceForm^ OpenTariffPriceForm = gcnew TariffPriceForm();
 		OpenTariffPriceForm->ShowDialog();
 	}
-private: System::Void HeadForm_Load_1(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void HeadMenuStrip_ItemClicked(System::Object^ sender, System::Windows::Forms::ToolStripItemClickedEventArgs^ e) {
-}
-private: System::Void EditToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
-}
+
+	private: System::Void HeadForm_Load_1(System::Object^ sender, System::EventArgs^ e) {
+	}
+	private: System::Void HeadMenuStrip_ItemClicked(System::Object^ sender, System::Windows::Forms::ToolStripItemClickedEventArgs^ e) {
+	}
+	private: System::Void EditToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+	}
 };
 }
