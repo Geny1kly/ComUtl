@@ -51,7 +51,10 @@ namespace COMUTL {
 	private: System::Windows::Forms::Label^ PlanTariffLabel;
 	private: System::Windows::Forms::Label^ TermPlanLabel;
 	private: System::Windows::Forms::Label^ SubsidiesLabel;
-	private: System::Windows::Forms::Label^ OwnerLabel;
+	private: System::Windows::Forms::Label^ FirstNameLabel;
+
+
+
 	private: System::Windows::Forms::Label^ EISCodeLabel;
 	private: System::Windows::Forms::Label^ AddressOblastLabel;
 	private: System::Windows::Forms::Label^ AddressCityLabel;
@@ -60,19 +63,28 @@ namespace COMUTL {
 	private: System::Windows::Forms::TextBox^ PriceTextBox;
 	private: System::Windows::Forms::TextBox^ FirstNameTextBox;
 	private: System::Windows::Forms::TextBox^ ThirdNameTextBox;
-	private: System::Windows::Forms::Label^ label2;
+	private: System::Windows::Forms::Label^ ThirdNameLabel;
+
+
 	private: System::Windows::Forms::TextBox^ SecondNameTextBox;
-	private: System::Windows::Forms::Label^ label1;
+	private: System::Windows::Forms::Label^ SecoundNameLabel;
+
 	private: System::ComponentModel::BackgroundWorker^ backgroundWorker1;
-	private: System::Windows::Forms::TextBox^ CodeTextBox;
+	private: System::Windows::Forms::TextBox^ EISCodeTextBox;
+
 	private: System::Windows::Forms::TextBox^ HomeTextBox;
 	private: System::Windows::Forms::TextBox^ StreetTextBox;
 	private: System::Windows::Forms::TextBox^ CityComboBox;
 	private: System::Windows::Forms::TextBox^ RegionTextBox;
-	private: System::Windows::Forms::ComboBox^ comboBox1;
-	private: System::Windows::Forms::DateTimePicker^ dateTimePicker1;
-	private: System::Windows::Forms::CheckBox^ checkBox1;
-	private: System::Windows::Forms::ComboBox^ comboBox2;
+	private: System::Windows::Forms::ComboBox^ DiscountComboBox;
+	private: System::Windows::Forms::DateTimePicker^ TermPlanDateTimePicker;
+
+
+	private: System::Windows::Forms::CheckBox^ SubsidiesCheckBox;
+
+	private: System::Windows::Forms::ComboBox^ PlanTariffComboBox;
+
+
 
 	protected:
 
@@ -92,10 +104,10 @@ namespace COMUTL {
 		void InitializeComponent(void)
 		{
 			this->EditConditionsGroupBox = (gcnew System::Windows::Forms::GroupBox());
-			this->comboBox2 = (gcnew System::Windows::Forms::ComboBox());
-			this->checkBox1 = (gcnew System::Windows::Forms::CheckBox());
-			this->dateTimePicker1 = (gcnew System::Windows::Forms::DateTimePicker());
-			this->comboBox1 = (gcnew System::Windows::Forms::ComboBox());
+			this->PlanTariffComboBox = (gcnew System::Windows::Forms::ComboBox());
+			this->SubsidiesCheckBox = (gcnew System::Windows::Forms::CheckBox());
+			this->TermPlanDateTimePicker = (gcnew System::Windows::Forms::DateTimePicker());
+			this->DiscountComboBox = (gcnew System::Windows::Forms::ComboBox());
 			this->PriceTextBox = (gcnew System::Windows::Forms::TextBox());
 			this->SubsidiesLabel = (gcnew System::Windows::Forms::Label());
 			this->TermPlanLabel = (gcnew System::Windows::Forms::Label());
@@ -105,12 +117,12 @@ namespace COMUTL {
 			this->EditInfoGroupBox = (gcnew System::Windows::Forms::GroupBox());
 			this->EISCodeLabel = (gcnew System::Windows::Forms::Label());
 			this->ThirdNameTextBox = (gcnew System::Windows::Forms::TextBox());
-			this->label2 = (gcnew System::Windows::Forms::Label());
+			this->ThirdNameLabel = (gcnew System::Windows::Forms::Label());
 			this->SecondNameTextBox = (gcnew System::Windows::Forms::TextBox());
-			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->CodeTextBox = (gcnew System::Windows::Forms::TextBox());
+			this->SecoundNameLabel = (gcnew System::Windows::Forms::Label());
+			this->EISCodeTextBox = (gcnew System::Windows::Forms::TextBox());
 			this->FirstNameTextBox = (gcnew System::Windows::Forms::TextBox());
-			this->OwnerLabel = (gcnew System::Windows::Forms::Label());
+			this->FirstNameLabel = (gcnew System::Windows::Forms::Label());
 			this->EditAddressGroupBox = (gcnew System::Windows::Forms::GroupBox());
 			this->AddressHomeLabel = (gcnew System::Windows::Forms::Label());
 			this->AddressStreetLabel = (gcnew System::Windows::Forms::Label());
@@ -129,10 +141,10 @@ namespace COMUTL {
 			// EditConditionsGroupBox
 			// 
 			this->EditConditionsGroupBox->BackColor = System::Drawing::SystemColors::ControlLight;
-			this->EditConditionsGroupBox->Controls->Add(this->comboBox2);
-			this->EditConditionsGroupBox->Controls->Add(this->checkBox1);
-			this->EditConditionsGroupBox->Controls->Add(this->dateTimePicker1);
-			this->EditConditionsGroupBox->Controls->Add(this->comboBox1);
+			this->EditConditionsGroupBox->Controls->Add(this->PlanTariffComboBox);
+			this->EditConditionsGroupBox->Controls->Add(this->SubsidiesCheckBox);
+			this->EditConditionsGroupBox->Controls->Add(this->TermPlanDateTimePicker);
+			this->EditConditionsGroupBox->Controls->Add(this->DiscountComboBox);
 			this->EditConditionsGroupBox->Controls->Add(this->PriceTextBox);
 			this->EditConditionsGroupBox->Controls->Add(this->SubsidiesLabel);
 			this->EditConditionsGroupBox->Controls->Add(this->TermPlanLabel);
@@ -149,48 +161,48 @@ namespace COMUTL {
 			this->EditConditionsGroupBox->Text = L"Conditions";
 			this->EditConditionsGroupBox->Enter += gcnew System::EventHandler(this, &EditPersonalDataForm::EditConditionsGroupBox_Enter);
 			// 
-			// comboBox2
+			// PlanTariffComboBox
 			// 
-			this->comboBox2->FormattingEnabled = true;
-			this->comboBox2->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"None", L"Yearly", L"Monthly" });
-			this->comboBox2->Location = System::Drawing::Point(130, 79);
-			this->comboBox2->Margin = System::Windows::Forms::Padding(4);
-			this->comboBox2->Name = L"comboBox2";
-			this->comboBox2->Size = System::Drawing::Size(82, 24);
-			this->comboBox2->TabIndex = 10;
+			this->PlanTariffComboBox->FormattingEnabled = true;
+			this->PlanTariffComboBox->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"None", L"Yearly", L"Monthly" });
+			this->PlanTariffComboBox->Location = System::Drawing::Point(130, 79);
+			this->PlanTariffComboBox->Margin = System::Windows::Forms::Padding(4);
+			this->PlanTariffComboBox->Name = L"PlanTariffComboBox";
+			this->PlanTariffComboBox->Size = System::Drawing::Size(82, 24);
+			this->PlanTariffComboBox->TabIndex = 10;
 			// 
-			// checkBox1
+			// SubsidiesCheckBox
 			// 
-			this->checkBox1->AutoSize = true;
-			this->checkBox1->Location = System::Drawing::Point(352, 80);
-			this->checkBox1->Margin = System::Windows::Forms::Padding(4);
-			this->checkBox1->Name = L"checkBox1";
-			this->checkBox1->Size = System::Drawing::Size(72, 20);
-			this->checkBox1->TabIndex = 9;
-			this->checkBox1->Text = L"Include";
-			this->checkBox1->UseVisualStyleBackColor = true;
+			this->SubsidiesCheckBox->AutoSize = true;
+			this->SubsidiesCheckBox->Location = System::Drawing::Point(352, 80);
+			this->SubsidiesCheckBox->Margin = System::Windows::Forms::Padding(4);
+			this->SubsidiesCheckBox->Name = L"SubsidiesCheckBox";
+			this->SubsidiesCheckBox->Size = System::Drawing::Size(72, 20);
+			this->SubsidiesCheckBox->TabIndex = 9;
+			this->SubsidiesCheckBox->Text = L"Include";
+			this->SubsidiesCheckBox->UseVisualStyleBackColor = true;
 			// 
-			// dateTimePicker1
+			// TermPlanDateTimePicker
 			// 
-			this->dateTimePicker1->Location = System::Drawing::Point(130, 130);
-			this->dateTimePicker1->Margin = System::Windows::Forms::Padding(4);
-			this->dateTimePicker1->Name = L"dateTimePicker1";
-			this->dateTimePicker1->Size = System::Drawing::Size(301, 22);
-			this->dateTimePicker1->TabIndex = 8;
+			this->TermPlanDateTimePicker->Location = System::Drawing::Point(130, 130);
+			this->TermPlanDateTimePicker->Margin = System::Windows::Forms::Padding(4);
+			this->TermPlanDateTimePicker->Name = L"TermPlanDateTimePicker";
+			this->TermPlanDateTimePicker->Size = System::Drawing::Size(301, 22);
+			this->TermPlanDateTimePicker->TabIndex = 8;
 			// 
-			// comboBox1
+			// DiscountComboBox
 			// 
-			this->comboBox1->FormattingEnabled = true;
-			this->comboBox1->Items->AddRange(gcnew cli::array< System::Object^  >(31) {
-				L"0%", L"1%", L"2%", L"3%", L"4%", L"5%", L"6%",
-					L"7%", L"8%", L"9%", L"10%", L"11%", L"12%", L"13%", L"14%", L"15%", L"16%", L"17%", L"18%", L"19%", L"20%", L"21%", L"22%",
+			this->DiscountComboBox->FormattingEnabled = true;
+			this->DiscountComboBox->Items->AddRange(gcnew cli::array< System::Object^  >(31) {
+				L"0%", L"1%", L"2%", L"3%", L"4%", L"5%",
+					L"6%", L"7%", L"8%", L"9%", L"10%", L"11%", L"12%", L"13%", L"14%", L"15%", L"16%", L"17%", L"18%", L"19%", L"20%", L"21%", L"22%",
 					L"23%", L"24%", L"25%", L"26%", L"27%", L"28%", L"29%", L"30%"
 			});
-			this->comboBox1->Location = System::Drawing::Point(349, 24);
-			this->comboBox1->Margin = System::Windows::Forms::Padding(4);
-			this->comboBox1->Name = L"comboBox1";
-			this->comboBox1->Size = System::Drawing::Size(79, 24);
-			this->comboBox1->TabIndex = 7;
+			this->DiscountComboBox->Location = System::Drawing::Point(349, 24);
+			this->DiscountComboBox->Margin = System::Windows::Forms::Padding(4);
+			this->DiscountComboBox->Name = L"DiscountComboBox";
+			this->DiscountComboBox->Size = System::Drawing::Size(79, 24);
+			this->DiscountComboBox->TabIndex = 7;
 			// 
 			// PriceTextBox
 			// 
@@ -251,12 +263,12 @@ namespace COMUTL {
 			this->EditInfoGroupBox->BackColor = System::Drawing::SystemColors::ControlLight;
 			this->EditInfoGroupBox->Controls->Add(this->EISCodeLabel);
 			this->EditInfoGroupBox->Controls->Add(this->ThirdNameTextBox);
-			this->EditInfoGroupBox->Controls->Add(this->label2);
+			this->EditInfoGroupBox->Controls->Add(this->ThirdNameLabel);
 			this->EditInfoGroupBox->Controls->Add(this->SecondNameTextBox);
-			this->EditInfoGroupBox->Controls->Add(this->label1);
-			this->EditInfoGroupBox->Controls->Add(this->CodeTextBox);
+			this->EditInfoGroupBox->Controls->Add(this->SecoundNameLabel);
+			this->EditInfoGroupBox->Controls->Add(this->EISCodeTextBox);
 			this->EditInfoGroupBox->Controls->Add(this->FirstNameTextBox);
-			this->EditInfoGroupBox->Controls->Add(this->OwnerLabel);
+			this->EditInfoGroupBox->Controls->Add(this->FirstNameLabel);
 			this->EditInfoGroupBox->Location = System::Drawing::Point(475, 12);
 			this->EditInfoGroupBox->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->EditInfoGroupBox->Name = L"EditInfoGroupBox";
@@ -283,15 +295,15 @@ namespace COMUTL {
 			this->ThirdNameTextBox->Size = System::Drawing::Size(121, 22);
 			this->ThirdNameTextBox->TabIndex = 5;
 			// 
-			// label2
+			// ThirdNameLabel
 			// 
-			this->label2->AutoSize = true;
-			this->label2->Location = System::Drawing::Point(14, 163);
-			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(78, 16);
-			this->label2->TabIndex = 0;
-			this->label2->Text = L"Third Name";
-			this->label2->Click += gcnew System::EventHandler(this, &EditPersonalDataForm::OwnerLabel_Click);
+			this->ThirdNameLabel->AutoSize = true;
+			this->ThirdNameLabel->Location = System::Drawing::Point(14, 163);
+			this->ThirdNameLabel->Name = L"ThirdNameLabel";
+			this->ThirdNameLabel->Size = System::Drawing::Size(78, 16);
+			this->ThirdNameLabel->TabIndex = 0;
+			this->ThirdNameLabel->Text = L"Third Name";
+			this->ThirdNameLabel->Click += gcnew System::EventHandler(this, &EditPersonalDataForm::OwnerLabel_Click);
 			// 
 			// SecondNameTextBox
 			// 
@@ -301,23 +313,23 @@ namespace COMUTL {
 			this->SecondNameTextBox->Size = System::Drawing::Size(121, 22);
 			this->SecondNameTextBox->TabIndex = 5;
 			// 
-			// label1
+			// SecoundNameLabel
 			// 
-			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(14, 100);
-			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(94, 16);
-			this->label1->TabIndex = 0;
-			this->label1->Text = L"Second Name";
-			this->label1->Click += gcnew System::EventHandler(this, &EditPersonalDataForm::OwnerLabel_Click);
+			this->SecoundNameLabel->AutoSize = true;
+			this->SecoundNameLabel->Location = System::Drawing::Point(14, 100);
+			this->SecoundNameLabel->Name = L"SecoundNameLabel";
+			this->SecoundNameLabel->Size = System::Drawing::Size(94, 16);
+			this->SecoundNameLabel->TabIndex = 0;
+			this->SecoundNameLabel->Text = L"Second Name";
+			this->SecoundNameLabel->Click += gcnew System::EventHandler(this, &EditPersonalDataForm::OwnerLabel_Click);
 			// 
-			// CodeTextBox
+			// EISCodeTextBox
 			// 
-			this->CodeTextBox->Location = System::Drawing::Point(17, 258);
-			this->CodeTextBox->Margin = System::Windows::Forms::Padding(4);
-			this->CodeTextBox->Name = L"CodeTextBox";
-			this->CodeTextBox->Size = System::Drawing::Size(121, 22);
-			this->CodeTextBox->TabIndex = 5;
+			this->EISCodeTextBox->Location = System::Drawing::Point(17, 258);
+			this->EISCodeTextBox->Margin = System::Windows::Forms::Padding(4);
+			this->EISCodeTextBox->Name = L"EISCodeTextBox";
+			this->EISCodeTextBox->Size = System::Drawing::Size(121, 22);
+			this->EISCodeTextBox->TabIndex = 5;
 			// 
 			// FirstNameTextBox
 			// 
@@ -327,15 +339,15 @@ namespace COMUTL {
 			this->FirstNameTextBox->Size = System::Drawing::Size(121, 22);
 			this->FirstNameTextBox->TabIndex = 5;
 			// 
-			// OwnerLabel
+			// FirstNameLabel
 			// 
-			this->OwnerLabel->AutoSize = true;
-			this->OwnerLabel->Location = System::Drawing::Point(14, 35);
-			this->OwnerLabel->Name = L"OwnerLabel";
-			this->OwnerLabel->Size = System::Drawing::Size(72, 16);
-			this->OwnerLabel->TabIndex = 0;
-			this->OwnerLabel->Text = L"First Name";
-			this->OwnerLabel->Click += gcnew System::EventHandler(this, &EditPersonalDataForm::OwnerLabel_Click);
+			this->FirstNameLabel->AutoSize = true;
+			this->FirstNameLabel->Location = System::Drawing::Point(14, 35);
+			this->FirstNameLabel->Name = L"FirstNameLabel";
+			this->FirstNameLabel->Size = System::Drawing::Size(72, 16);
+			this->FirstNameLabel->TabIndex = 0;
+			this->FirstNameLabel->Text = L"First Name";
+			this->FirstNameLabel->Click += gcnew System::EventHandler(this, &EditPersonalDataForm::OwnerLabel_Click);
 			// 
 			// EditAddressGroupBox
 			// 
@@ -473,7 +485,7 @@ namespace COMUTL {
 			}
 
 			record->price = Double::Parse(PriceTextBox->Text);
-			//record->discount = 
+			record->discount = 
 		}
 		else {
 			return;
