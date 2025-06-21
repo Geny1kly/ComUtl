@@ -673,12 +673,11 @@ private: RecordRepository^ repository;
 
 			for each (ListBox ^ calb in listBoxes) calb->Items->Clear();
 
-			PriceListBox->Items->Clear();
-
 			auto record = repository->GetRecord(GetSelectedRecordType());
 			if (record == nullptr) return;
 
 			PriceListBox->Items->Add(record->price.ToString());
+			DiscountListBox->Items->Add(String::Format("{0}%", record->discount));
 		}
 #pragma endregion
 

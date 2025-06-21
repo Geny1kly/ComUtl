@@ -485,7 +485,7 @@ namespace COMUTL {
 			}
 
 			record->price = Double::Parse(PriceTextBox->Text);
-			record->discount = 
+			record->discount = DiscountComboBox->SelectedIndex;
 		}
 		else {
 			return;
@@ -496,6 +496,7 @@ namespace COMUTL {
 		if (record == nullptr) return;
 
 		PriceTextBox->Text = record->price.ToString();
+		DiscountComboBox->SelectedIndex = record->discount;
 	}
 };
 }
