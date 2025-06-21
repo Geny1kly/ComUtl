@@ -58,3 +58,13 @@ void TariffRepository::Save()
 	}
 	writer->Close();
 }
+
+TariffRecord^ TariffRepository::GetRecord(int month, int year) {
+	for (int i = 0; i < records->Count; i++) {
+		if (records[i]->date->Month == month && records[i]->date->Year == year) {
+			return records[i];
+		}
+	}
+
+	return nullptr;
+}

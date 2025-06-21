@@ -28,5 +28,6 @@ public:
 
 	void Load();
 	void Save();
+	TariffRecord^ GetRecord(int month, int year);
 	List<TariffRecord^>^ GetRecords();
 };

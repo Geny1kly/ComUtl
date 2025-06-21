@@ -44,9 +44,12 @@ namespace COMUTL {
 	protected:
 
 	private: TariffRepository^ tariffs;
+	private: bool isRefreshing;
+	private: Series^ monthlySeries;
+	private: Series^ yearlySeries;
 
 	private: System::Windows::Forms::GroupBox^ TariffPriceMenuGroupBox;
-	private: System::Windows::Forms::Button^ ShowDataButton;
+
 	private: System::Windows::Forms::TextBox^ MontlyPriceTextBox;
 	private: System::Windows::Forms::TextBox^ YearlyPriceTextBox;
 	private: System::Windows::Forms::Label^ MontlyLabel;
@@ -56,8 +59,9 @@ namespace COMUTL {
 	private: System::Windows::Forms::Label^ MonthLabel;
 	private: System::Windows::Forms::Label^ YearLabel;
 	private: System::Windows::Forms::Button^ AddPriceButton;
-	private: System::Windows::Forms::Label^ PriceTariffLabel;
+
 	private: System::Windows::Forms::DataGridView^ TariffPriceDataGridView;
+	private: System::Windows::Forms::Button^ button1;
 
 
 	protected:
@@ -80,7 +84,7 @@ namespace COMUTL {
 			System::Windows::Forms::DataVisualization::Charting::Series^ series1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
 			this->TariffPriceChart = (gcnew System::Windows::Forms::DataVisualization::Charting::Chart());
 			this->TariffPriceMenuGroupBox = (gcnew System::Windows::Forms::GroupBox());
-			this->PriceTariffLabel = (gcnew System::Windows::Forms::Label());
+			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->AddPriceButton = (gcnew System::Windows::Forms::Button());
 			this->YearLabel = (gcnew System::Windows::Forms::Label());
 			this->MonthLabel = (gcnew System::Windows::Forms::Label());
@@ -90,7 +94,6 @@ namespace COMUTL {
 			this->MontlyLabel = (gcnew System::Windows::Forms::Label());
 			this->YearlyPriceTextBox = (gcnew System::Windows::Forms::TextBox());
 			this->MontlyPriceTextBox = (gcnew System::Windows::Forms::TextBox());
-			this->ShowDataButton = (gcnew System::Windows::Forms::Button());
 			this->TariffPriceDataGridView = (gcnew System::Windows::Forms::DataGridView());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->TariffPriceChart))->BeginInit();
 			this->TariffPriceMenuGroupBox->SuspendLayout();
@@ -104,7 +107,7 @@ namespace COMUTL {
 			legend1->Name = L"Legend1";
 			this->TariffPriceChart->Legends->Add(legend1);
 			this->TariffPriceChart->Location = System::Drawing::Point(9, 10);
-			this->TariffPriceChart->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->TariffPriceChart->Margin = System::Windows::Forms::Padding(2);
 			this->TariffPriceChart->Name = L"TariffPriceChart";
 			this->TariffPriceChart->Palette = System::Windows::Forms::DataVisualization::Charting::ChartColorPalette::Pastel;
 			series1->ChartArea = L"ChartArea1";
@@ -118,7 +121,7 @@ namespace COMUTL {
 			// TariffPriceMenuGroupBox
 			// 
 			this->TariffPriceMenuGroupBox->BackColor = System::Drawing::SystemColors::ActiveCaption;
-			this->TariffPriceMenuGroupBox->Controls->Add(this->PriceTariffLabel);
+			this->TariffPriceMenuGroupBox->Controls->Add(this->button1);
 			this->TariffPriceMenuGroupBox->Controls->Add(this->AddPriceButton);
 			this->TariffPriceMenuGroupBox->Controls->Add(this->YearLabel);
 			this->TariffPriceMenuGroupBox->Controls->Add(this->MonthLabel);
@@ -128,41 +131,39 @@ namespace COMUTL {
 			this->TariffPriceMenuGroupBox->Controls->Add(this->MontlyLabel);
 			this->TariffPriceMenuGroupBox->Controls->Add(this->YearlyPriceTextBox);
 			this->TariffPriceMenuGroupBox->Controls->Add(this->MontlyPriceTextBox);
-			this->TariffPriceMenuGroupBox->Controls->Add(this->ShowDataButton);
 			this->TariffPriceMenuGroupBox->Location = System::Drawing::Point(458, 10);
-			this->TariffPriceMenuGroupBox->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->TariffPriceMenuGroupBox->Margin = System::Windows::Forms::Padding(2);
 			this->TariffPriceMenuGroupBox->Name = L"TariffPriceMenuGroupBox";
-			this->TariffPriceMenuGroupBox->Padding = System::Windows::Forms::Padding(2, 2, 2, 2);
-			this->TariffPriceMenuGroupBox->Size = System::Drawing::Size(195, 265);
+			this->TariffPriceMenuGroupBox->Padding = System::Windows::Forms::Padding(2);
+			this->TariffPriceMenuGroupBox->Size = System::Drawing::Size(175, 265);
 			this->TariffPriceMenuGroupBox->TabIndex = 1;
 			this->TariffPriceMenuGroupBox->TabStop = false;
 			this->TariffPriceMenuGroupBox->Text = L"Menu";
 			// 
-			// PriceTariffLabel
+			// button1
 			// 
-			this->PriceTariffLabel->AutoSize = true;
-			this->PriceTariffLabel->Location = System::Drawing::Point(23, 31);
-			this->PriceTariffLabel->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
-			this->PriceTariffLabel->Name = L"PriceTariffLabel";
-			this->PriceTariffLabel->Size = System::Drawing::Size(87, 13);
-			this->PriceTariffLabel->TabIndex = 7;
-			this->PriceTariffLabel->Text = L"Add price of tariff";
+			this->button1->Location = System::Drawing::Point(14, 231);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(147, 19);
+			this->button1->TabIndex = 7;
+			this->button1->Text = L"Delete";
+			this->button1->UseVisualStyleBackColor = true;
 			// 
 			// AddPriceButton
 			// 
-			this->AddPriceButton->Location = System::Drawing::Point(129, 28);
-			this->AddPriceButton->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->AddPriceButton->Location = System::Drawing::Point(14, 161);
+			this->AddPriceButton->Margin = System::Windows::Forms::Padding(2);
 			this->AddPriceButton->Name = L"AddPriceButton";
-			this->AddPriceButton->Size = System::Drawing::Size(44, 19);
+			this->AddPriceButton->Size = System::Drawing::Size(147, 19);
 			this->AddPriceButton->TabIndex = 2;
-			this->AddPriceButton->Text = L"OK";
+			this->AddPriceButton->Text = L"Add";
 			this->AddPriceButton->UseVisualStyleBackColor = true;
 			this->AddPriceButton->Click += gcnew System::EventHandler(this, &TariffPriceForm::AddPriceButton_Click);
 			// 
 			// YearLabel
 			// 
 			this->YearLabel->AutoSize = true;
-			this->YearLabel->Location = System::Drawing::Point(23, 187);
+			this->YearLabel->Location = System::Drawing::Point(11, 128);
 			this->YearLabel->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->YearLabel->Name = L"YearLabel";
 			this->YearLabel->Size = System::Drawing::Size(29, 13);
@@ -172,7 +173,7 @@ namespace COMUTL {
 			// MonthLabel
 			// 
 			this->MonthLabel->AutoSize = true;
-			this->MonthLabel->Location = System::Drawing::Point(23, 145);
+			this->MonthLabel->Location = System::Drawing::Point(11, 93);
 			this->MonthLabel->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->MonthLabel->Name = L"MonthLabel";
 			this->MonthLabel->Size = System::Drawing::Size(37, 13);
@@ -182,10 +183,10 @@ namespace COMUTL {
 			// YearComboBox
 			// 
 			this->YearComboBox->FormattingEnabled = true;
-			this->YearComboBox->Location = System::Drawing::Point(107, 184);
-			this->YearComboBox->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->YearComboBox->Location = System::Drawing::Point(78, 125);
+			this->YearComboBox->Margin = System::Windows::Forms::Padding(2);
 			this->YearComboBox->Name = L"YearComboBox";
-			this->YearComboBox->Size = System::Drawing::Size(67, 21);
+			this->YearComboBox->Size = System::Drawing::Size(84, 21);
 			this->YearComboBox->TabIndex = 4;
 			// 
 			// MonthComboBox
@@ -195,16 +196,16 @@ namespace COMUTL {
 				L"1", L"2", L"3", L"4", L"5", L"6", L"7", L"8",
 					L"9", L"10", L"11", L"12"
 			});
-			this->MonthComboBox->Location = System::Drawing::Point(106, 138);
-			this->MonthComboBox->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->MonthComboBox->Location = System::Drawing::Point(78, 90);
+			this->MonthComboBox->Margin = System::Windows::Forms::Padding(2);
 			this->MonthComboBox->Name = L"MonthComboBox";
-			this->MonthComboBox->Size = System::Drawing::Size(67, 21);
+			this->MonthComboBox->Size = System::Drawing::Size(83, 21);
 			this->MonthComboBox->TabIndex = 2;
 			// 
 			// YearlyLabel
 			// 
 			this->YearlyLabel->AutoSize = true;
-			this->YearlyLabel->Location = System::Drawing::Point(23, 106);
+			this->YearlyLabel->Location = System::Drawing::Point(11, 57);
 			this->YearlyLabel->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->YearlyLabel->Name = L"YearlyLabel";
 			this->YearlyLabel->Size = System::Drawing::Size(62, 13);
@@ -214,7 +215,7 @@ namespace COMUTL {
 			// MontlyLabel
 			// 
 			this->MontlyLabel->AutoSize = true;
-			this->MontlyLabel->Location = System::Drawing::Point(23, 67);
+			this->MontlyLabel->Location = System::Drawing::Point(11, 20);
 			this->MontlyLabel->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->MontlyLabel->Name = L"MontlyLabel";
 			this->MontlyLabel->Size = System::Drawing::Size(64, 13);
@@ -223,41 +224,31 @@ namespace COMUTL {
 			// 
 			// YearlyPriceTextBox
 			// 
-			this->YearlyPriceTextBox->Location = System::Drawing::Point(107, 101);
-			this->YearlyPriceTextBox->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->YearlyPriceTextBox->Location = System::Drawing::Point(79, 54);
+			this->YearlyPriceTextBox->Margin = System::Windows::Forms::Padding(2);
 			this->YearlyPriceTextBox->Name = L"YearlyPriceTextBox";
-			this->YearlyPriceTextBox->Size = System::Drawing::Size(67, 20);
+			this->YearlyPriceTextBox->Size = System::Drawing::Size(83, 20);
 			this->YearlyPriceTextBox->TabIndex = 2;
 			// 
 			// MontlyPriceTextBox
 			// 
-			this->MontlyPriceTextBox->Location = System::Drawing::Point(107, 65);
-			this->MontlyPriceTextBox->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->MontlyPriceTextBox->Location = System::Drawing::Point(79, 18);
+			this->MontlyPriceTextBox->Margin = System::Windows::Forms::Padding(2);
 			this->MontlyPriceTextBox->Name = L"MontlyPriceTextBox";
-			this->MontlyPriceTextBox->Size = System::Drawing::Size(67, 20);
+			this->MontlyPriceTextBox->Size = System::Drawing::Size(83, 20);
 			this->MontlyPriceTextBox->TabIndex = 1;
-			// 
-			// ShowDataButton
-			// 
-			this->ShowDataButton->Location = System::Drawing::Point(106, 224);
-			this->ShowDataButton->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
-			this->ShowDataButton->Name = L"ShowDataButton";
-			this->ShowDataButton->Size = System::Drawing::Size(66, 21);
-			this->ShowDataButton->TabIndex = 0;
-			this->ShowDataButton->Text = L"Show data";
-			this->ShowDataButton->UseVisualStyleBackColor = true;
-			this->ShowDataButton->Click += gcnew System::EventHandler(this, &TariffPriceForm::ShowDataButton_Click);
 			// 
 			// TariffPriceDataGridView
 			// 
 			this->TariffPriceDataGridView->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->TariffPriceDataGridView->Location = System::Drawing::Point(664, 10);
-			this->TariffPriceDataGridView->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->TariffPriceDataGridView->Location = System::Drawing::Point(641, 10);
+			this->TariffPriceDataGridView->Margin = System::Windows::Forms::Padding(2);
 			this->TariffPriceDataGridView->Name = L"TariffPriceDataGridView";
 			this->TariffPriceDataGridView->RowHeadersWidth = 51;
 			this->TariffPriceDataGridView->RowTemplate->Height = 24;
-			this->TariffPriceDataGridView->Size = System::Drawing::Size(278, 265);
+			this->TariffPriceDataGridView->Size = System::Drawing::Size(301, 265);
 			this->TariffPriceDataGridView->TabIndex = 2;
+			this->TariffPriceDataGridView->CurrentCellChanged += gcnew System::EventHandler(this, &TariffPriceForm::TariffPriceDataGridView_CurrentCellChanged);
 			// 
 			// TariffPriceForm
 			// 
@@ -268,9 +259,10 @@ namespace COMUTL {
 			this->Controls->Add(this->TariffPriceDataGridView);
 			this->Controls->Add(this->TariffPriceMenuGroupBox);
 			this->Controls->Add(this->TariffPriceChart);
-			this->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->Margin = System::Windows::Forms::Padding(2);
 			this->Name = L"TariffPriceForm";
 			this->Text = L"TariffPriceForm";
+			this->Load += gcnew System::EventHandler(this, &TariffPriceForm::TariffPriceForm_Load);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->TariffPriceChart))->EndInit();
 			this->TariffPriceMenuGroupBox->ResumeLayout(false);
 			this->TariffPriceMenuGroupBox->PerformLayout();
@@ -281,42 +273,75 @@ namespace COMUTL {
 
 
 #pragma endregion
-	private: System::Void ShowDataButton_Click(System::Object^ sender, System::EventArgs^ e) {
+	String^ GetVeryShortDateString(TariffRecord^ record) {
+		return String::Format("{2}{0}.{1}", record->date->Month, record->date->Year, (Char)(record->date->Month < 10 ? '0' : '\0'));
+	}
+	void FillWithRecord(TariffRecord^ record) {
+		MontlyPriceTextBox->Text = record->montlyPrice.ToString();
+		YearlyPriceTextBox->Text = record->yearlyPrice.ToString();
+	}
+	void RefreshRecord(TariffRecord^ record) {
+		if (isRefreshing) return;
+		isRefreshing = true;
+
+		int i;
+		for (i = 0; i < TariffPriceDataGridView->Rows->Count; i++) {
+			if (TariffPriceDataGridView->Rows[i]->Cells[0]->Value->ToString() == GetVeryShortDateString(record)) {
+				TariffPriceDataGridView->Rows[i]->Cells[1]->Value = record->montlyPrice.ToString("F0");
+				TariffPriceDataGridView->Rows[i]->Cells[2]->Value = record->yearlyPrice.ToString("F0");
+				break;
+			}
+		}
+		if (i >= TariffPriceDataGridView->Rows->Count) {
+			isRefreshing = false;
+			return;
+		}
+		
+		monthlySeries->Points[i]->YValues[0] = record->montlyPrice;
+		yearlySeries->Points[i]->YValues[0] = record->yearlyPrice;
+
+		isRefreshing = false;
+	}
+	void InitData() {
 		this->TariffPriceChart->Series->Clear();
 		this->TariffPriceChart->ChartAreas->Clear();
 		this->TariffPriceDataGridView->Columns->Clear();
 		this->TariffPriceDataGridView->Rows->Clear();
 
-		auto area = gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea("MainArea");
+		auto area = gcnew ChartArea("MainArea");
 		this->TariffPriceChart->ChartAreas->Add(area);
 
-		auto seriesYearly = gcnew System::Windows::Forms::DataVisualization::Charting::Series("Yearly");
-		seriesYearly->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Line;
-		seriesYearly->Color = System::Drawing::Color::Green;
-		seriesYearly->MarkerStyle = MarkerStyle::Diamond;
-		seriesYearly->BorderWidth = 3;
+		yearlySeries = gcnew Series("Yearly");
+		yearlySeries->ChartType = SeriesChartType::Line;
+		yearlySeries->Color = System::Drawing::Color::Green;
+		yearlySeries->MarkerStyle = MarkerStyle::Diamond;
+		yearlySeries->BorderWidth = 3;
 
-		auto seriesMontly = gcnew System::Windows::Forms::DataVisualization::Charting::Series("Montly");
-		seriesMontly->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Line;
-		seriesMontly->Color = System::Drawing::Color::Blue;
-		seriesMontly->MarkerStyle = MarkerStyle::Circle;
-		seriesMontly->BorderWidth = 1;
+		monthlySeries = gcnew Series("Montly");
+		monthlySeries->ChartType = SeriesChartType::Line;
+		monthlySeries->Color = System::Drawing::Color::Blue;
+		monthlySeries->MarkerStyle = MarkerStyle::Circle;
+		monthlySeries->BorderWidth = 1;
 
 		auto records = tariffs->GetRecords();
 
 		for (int i = 0; i < records->Count; i++) {
-			seriesMontly->Points->AddXY(records[i]->date->ToShortDateString(), records[i]->montlyPrice);
+			monthlySeries->Points->AddXY(records[i]->date->ToShortDateString(), records[i]->montlyPrice);
 
-			if (records[i]->yearlyPrice > 0) seriesYearly->Points->AddXY(records[i]->date->ToShortDateString(), records[i]->yearlyPrice);
+			if (records[i]->yearlyPrice > 0) yearlySeries->Points->AddXY(records[i]->date->ToShortDateString(), records[i]->yearlyPrice);
 		}
 
-		this->TariffPriceChart->Series->Add(seriesMontly);
-		this->TariffPriceChart->Series->Add(seriesYearly);
+		this->TariffPriceChart->Series->Add(monthlySeries);
+		this->TariffPriceChart->Series->Add(yearlySeries);
 
 		this->TariffPriceDataGridView->ColumnCount = 3;
 		this->TariffPriceDataGridView->Columns[0]->Name = "Date";
 		this->TariffPriceDataGridView->Columns[1]->Name = "Montly tariff";
 		this->TariffPriceDataGridView->Columns[2]->Name = "Yearly tariff";
+
+		if (records->Count <= 0) {
+			return;
+		}
 
 		for (int i = 0; i < records->Count; i++) {
 			this->TariffPriceDataGridView->Rows->Add(
@@ -324,26 +349,36 @@ namespace COMUTL {
 				records[i]->montlyPrice.ToString("F0"),
 				records[i]->yearlyPrice > 0 ? records[i]->yearlyPrice.ToString("F0") : "-");
 		}
+
+		auto selectedDateParts = TariffPriceDataGridView->CurrentRow->Cells[0]->Value->ToString()->Split('.');
+
+		auto selectedRecord = tariffs->GetRecord(Int32::Parse(selectedDateParts[0]), Int32::Parse(selectedDateParts[1]));
+		if (selectedRecord == nullptr) {
+			return;
+		}
+
+		FillWithRecord(selectedRecord);
 	}
 	private: System::Void AddPriceButton_Click(System::Object^ sender, System::EventArgs^ e) {
-		auto tariff = gcnew TariffRecord();
-		auto records = tariffs->GetRecords();
+		TariffRecord^ tariff = tariffs->GetRecord(MonthComboBox->SelectedIndex + 1, Int32::Parse(YearComboBox->Text));
 
-		auto monthNumber = MonthComboBox->SelectedIndex + 1;
+		if (tariff == nullptr) {
+			tariff = gcnew TariffRecord();
+			//tariffs->GetRecords()->Add(tariff);
+		}
 
 		tariff->montlyPrice = Convert::ToDouble(MontlyPriceTextBox->Text);
 		tariff->yearlyPrice = Convert::ToDouble(YearlyPriceTextBox->Text);
 		tariff->date = gcnew DateTime(Int32::Parse(YearComboBox->Text), MonthComboBox->SelectedIndex + 1, 1);
 
-		for (int i = 0; i < records->Count; i++) {
-			if (records[i]->date->Month == tariff->date->Month && records[i]->date->Year == tariff->date->Year) {
-				records[i] = tariff;
-				return;
-			}
-		}
-		records->Add(tariff);
-
 		tariffs->Save();
+
+		RefreshRecord(tariff);
 	}
+private: System::Void TariffPriceForm_Load(System::Object^ sender, System::EventArgs^ e) {
+	InitData();
+}
+private: System::Void TariffPriceDataGridView_CurrentCellChanged(System::Object^ sender, System::EventArgs^ e) {
+}
 };
 }
