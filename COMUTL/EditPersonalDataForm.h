@@ -486,6 +486,7 @@ namespace COMUTL {
 
 			record->price = Double::Parse(PriceTextBox->Text);
 			record->discount = DiscountComboBox->SelectedIndex;
+			record->termPlan = TermPlanDateTimePicker->Value;
 		}
 		else {
 			return;
@@ -497,6 +498,7 @@ namespace COMUTL {
 
 		PriceTextBox->Text = record->price.ToString();
 		DiscountComboBox->SelectedIndex = record->discount;
+		TermPlanDateTimePicker->Value = record->termPlan;
 	}
 };
 }

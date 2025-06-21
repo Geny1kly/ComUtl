@@ -678,6 +678,7 @@ private: RecordRepository^ repository;
 
 			PriceListBox->Items->Add(record->price.ToString());
 			DiscountListBox->Items->Add(String::Format("{0}%", record->discount));
+			TermPlanListBox->Items->Add(record->termPlan.ToShortDateString());
 		}
 #pragma endregion
 
