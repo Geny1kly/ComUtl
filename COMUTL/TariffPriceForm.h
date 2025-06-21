@@ -14,19 +14,6 @@ namespace COMUTL {
 	using namespace System::Drawing;
 	using namespace System::Windows::Forms::DataVisualization::Charting;
 
-	ref class TariffRecord {
-	public:
-		String^ date;
-		double montlyPrice;
-		double yearlyPrice;
-
-		TariffRecord(String^ initialDate, double initialMontlyPrice, double initialYearlyPrice) {
-			date = initialDate;
-			montlyPrice = initialMontlyPrice;
-			yearlyPrice = initialYearlyPrice;
-		}
-	};
-
 	/// <summary>
 	/// Summary for TariffPriceForm
 	/// </summary>

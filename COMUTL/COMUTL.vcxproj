@@ -126,6 +126,7 @@
     <ClCompile Include="HeadForm.cpp" />
     <ClCompile Include="RecordRepository.cpp" />
     <ClCompile Include="TariffPriceForm.cpp" />
+    <ClCompile Include="TariffRepository.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CalculationsForm.h">
@@ -142,6 +143,7 @@
     <ClInclude Include="TariffPriceForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="TariffRepository.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="CalculationsForm.resx">
