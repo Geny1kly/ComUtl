@@ -1,7 +1,6 @@
 #include "TariffPriceForm.h"
 #include "CalculationsForm.h"
 #include "EditPersonalDataForm.h"
-#include "iostream"
 #include "RecordRepository.h"
 #pragma once
 
@@ -656,6 +655,7 @@ private: RecordRepository^ repository;
 		}
 
 		void UpdateDataListBoxes() {
+
 			array<ListBox^>^ listBoxes = gcnew array<ListBox^>{
 				this->PriceListBox,
 				this->DiscountListBox,
@@ -678,7 +678,27 @@ private: RecordRepository^ repository;
 
 			PriceListBox->Items->Add(record->price.ToString());
 			DiscountListBox->Items->Add(String::Format("{0}%", record->discount));
+
+			switch (record->planTarif) {
+
+			case EPlanTarif::None:
+				PlanTariffListBox->Items->Add("None");
+
+			case EPlanTarif::Monthly:
+				PlanTariffListBox->Items->Add("Montly");
+
+			case EPlanTarif::Yearly:
+				PlanTariffListBox->Items->Add("Yearly");
+			}
+
 			TermPlanListBox->Items->Add(record->termPlan.ToShortDateString());
+			SubsdiesListBox->Items->Add(record->subsidious ? "Yes" : "No");
+			OwnerListBox->Items->Add(record->ownerName);
+			EISCodeListBox->Items->Add(record->EISCode);
+			AddressOblastListBox->Items->Add(record->oblast);
+			AddressCityListBox->Items->Add(record->city);
+			AddressStreetListBox->Items->Add(record->street);
+			AddressHomeListBox->Items->Add(record->home);
 		}
 #pragma endregion
 
@@ -692,6 +712,7 @@ private: RecordRepository^ repository;
 		EditPersonalDataForm^ OpenEditPersonalDataForm = gcnew EditPersonalDataForm(repository, GetSelectedRecordType());
 		OpenEditPersonalDataForm->ShowDialog();
 		UpdateDataListBoxes();
+		//repository->Save("prekol");
 	}
 
 	private: System::Void CalculationsToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {

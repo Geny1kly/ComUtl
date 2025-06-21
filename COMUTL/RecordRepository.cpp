@@ -1,12 +1,12 @@
 #include "RecordRepository.h"
-#include <iostream>
-using namespace System;
+
 using namespace System::IO;
 using namespace System::Collections::Generic;
 
 RecordRepository::RecordRepository()
 {
 	this->records = gcnew List<HeadRecordForm^>();
+	//Load("prekol");
 }
 
 List<HeadRecordForm^>^ RecordRepository::GetRecords()
@@ -29,7 +29,6 @@ void RecordRepository::Load(String^ filename)
 
 	int recordCount = reader->ReadInt32();
 	for (int i = 0; i < recordCount; i++) {
-		std::cout << "reading " << i;
 		this->records->Add(gcnew HeadRecordForm(
 			static_cast<ERecordType>(reader->ReadByte()),
 			reader->ReadDouble(), reader->ReadInt32(), static_cast<EPlanTarif>(reader->ReadByte()),
@@ -38,7 +37,6 @@ void RecordRepository::Load(String^ filename)
 			reader->ReadString(), reader->ReadString(), reader->ReadDouble()
 		));
 	}
-	std::cout << "size: " << records->Capacity;
 	reader->Close();
 }
 
@@ -64,7 +62,7 @@ void RecordRepository::Save(String^ filename)
 		writer->Write(this->records[i]->subsidious);
 		writer->Write(this->records[i]->ownerName);
 		writer->Write(this->records[i]->EISCode);
-		writer->Write(this->records[i]->region);
+		writer->Write(this->records[i]->oblast);
 		writer->Write(this->records[i]->city);
 		writer->Write(this->records[i]->street);
 		writer->Write(this->records[i]->home);
@@ -76,7 +74,6 @@ void RecordRepository::Save(String^ filename)
 HeadRecordForm^ RecordRepository::GetRecord(ERecordType type) { 
 	HeadRecordForm^ record = nullptr;
 	for (int i = 0; i < records->Count; i++) {
-		std::cout << "checking for " << records[i]->type << " and " << type << '\n';
 		if (records[i]->type == type) {
 			return records[i];
 		}

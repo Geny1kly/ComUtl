@@ -27,7 +27,7 @@ public:
     String^ ownerName;
     String^ EISCode;
 
-    String^ region;
+    String^ oblast;
     String^ city;
     String^ street;
     String^ home;
@@ -47,7 +47,7 @@ public:
         String^ owner,
         String^ eis,
 
-        String^ newRegion,
+        String^ newOblast,
         String^ newCity,
         String^ newStreet,
         String^ newHome,
@@ -62,7 +62,7 @@ public:
         ownerName = owner;
         EISCode = eis;
 
-        region = newRegion;
+        oblast = newOblast;
         city = newCity;
         street = newStreet;
         home = newHome;
