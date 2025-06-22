@@ -21,7 +21,7 @@ public:
     double price;
     int discount;
     EPlanTarif planTarif;
-    DateTime termPlan;
+    DateTime^ termPlan;
     bool subsidious;
 
     String^ ownerName;
@@ -41,7 +41,7 @@ public:
         double initialPrice,
         int initialDiscount,
         EPlanTarif initialPlan,
-        DateTime initialTerm,
+        DateTime^ initialTerm,
         bool isSubsidious,
 
         String^ owner,

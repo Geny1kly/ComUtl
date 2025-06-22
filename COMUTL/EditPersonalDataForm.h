@@ -499,6 +499,7 @@ namespace COMUTL {
 			record->street = StreetTextBox->Text;
 			record->home = HomeTextBox->Text;
 
+			repository->isSaved = false;
 		}
 		else {
 			return;
@@ -512,7 +513,7 @@ namespace COMUTL {
 		PriceTextBox->Text = record->price.ToString();
 		DiscountComboBox->SelectedIndex = record->discount;
 		PlanTariffComboBox->SelectedIndex = record->planTarif;
-		TermPlanDateTimePicker->Value = record->termPlan;
+		TermPlanDateTimePicker->Value = (DateTime)record->termPlan;
 		SubsidiesCheckBox->Checked = record->subsidious;
 
 		auto names = record->ownerName->Split(' ');
