@@ -788,6 +788,8 @@ namespace COMUTL {
 		UpdateData();
 	};
 private: System::Void HeadForm_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
+	if (records->GetRecords()->Count <= 0) return;
+
 	if (!records->isSaved &&
 		MessageBox::Show(this, "Are you sure", "Confirammtion", MessageBoxButtons::YesNo, MessageBoxIcon::Question) ==
 		System::Windows::Forms::DialogResult::Yes
