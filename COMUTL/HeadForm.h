@@ -2,7 +2,7 @@
 #include "TariffPriceForm.h"
 #include "CalculationsForm.h"
 #include "EditPersonalDataForm.h"
-#include "RecordRepository.h"
+#include "GlobalRepository.h"
 #include "Settings.h"
 #pragma once
 
@@ -25,13 +25,10 @@ namespace COMUTL {
 		{
 			InitializeComponent();
 			this->properties = gcnew Properties();
-			this->records = gcnew RecordRepository(this->properties);
-			this->tariffs = gcnew TariffRepository();
+			this->repository = gcnew GlobalRepository(this->properties);
+
 			this->Load += gcnew System::EventHandler(this, &HeadForm::HeadForm_Load);
 			this->ResourseComboBox->SelectedIndexChanged += gcnew System::EventHandler(this, &HeadForm::ResourseComboBox_Selected);
-
-			tariffs->Load();
-			properties->Load();
 		}
 
 	protected:
@@ -46,19 +43,21 @@ namespace COMUTL {
 			}
 		}
 	private: Properties^ properties;
-	private: RecordRepository^ records;
+	private: GlobalRepository^ repository;
 	private: System::Windows::Forms::ToolStripMenuItem^ SaveAsToolStripMenuItem;
 
 
 	private: System::Windows::Forms::ToolStripMenuItem^ NewToolStripMenuItem;
 
-	private: TariffRepository^ tariffs;
-
 	private: System::Void HeadForm_Load(System::Object^ sender, System::EventArgs^ e) {
+		properties->Load();
+		repository->LoadCurrent();
+
 		UpdateData();
 		this->ResourseComboBox->SelectedIndex = 0;
 	}
 	private: System::Void ResourseComboBox_Selected(System::Object^ sender, System::EventArgs^ e) {
+		repository->mode = GetSelectedRecordType();
 		UpdateData();
 	}
 
@@ -207,28 +206,28 @@ namespace COMUTL {
 			// NewToolStripMenuItem
 			// 
 			this->NewToolStripMenuItem->Name = L"NewToolStripMenuItem";
-			this->NewToolStripMenuItem->Size = System::Drawing::Size(180, 22);
+			this->NewToolStripMenuItem->Size = System::Drawing::Size(123, 22);
 			this->NewToolStripMenuItem->Text = L"New...";
 			this->NewToolStripMenuItem->Click += gcnew System::EventHandler(this, &HeadForm::NewToolStripMenuItem_Click);
 			// 
 			// LoadToolStripMenuItem
 			// 
 			this->LoadToolStripMenuItem->Name = L"LoadToolStripMenuItem";
-			this->LoadToolStripMenuItem->Size = System::Drawing::Size(180, 22);
+			this->LoadToolStripMenuItem->Size = System::Drawing::Size(123, 22);
 			this->LoadToolStripMenuItem->Text = L"Load...";
 			this->LoadToolStripMenuItem->Click += gcnew System::EventHandler(this, &HeadForm::LoadToolStripMenuItem_Click);
 			// 
 			// SaveAsToolStripMenuItem
 			// 
 			this->SaveAsToolStripMenuItem->Name = L"SaveAsToolStripMenuItem";
-			this->SaveAsToolStripMenuItem->Size = System::Drawing::Size(180, 22);
+			this->SaveAsToolStripMenuItem->Size = System::Drawing::Size(123, 22);
 			this->SaveAsToolStripMenuItem->Text = L"Save As...";
 			this->SaveAsToolStripMenuItem->Click += gcnew System::EventHandler(this, &HeadForm::SaveAsToolStripMenuItem_Click);
 			// 
 			// SaveToolStripMenuItem
 			// 
 			this->SaveToolStripMenuItem->Name = L"SaveToolStripMenuItem";
-			this->SaveToolStripMenuItem->Size = System::Drawing::Size(180, 22);
+			this->SaveToolStripMenuItem->Size = System::Drawing::Size(123, 22);
 			this->SaveToolStripMenuItem->Text = L"Save";
 			this->SaveToolStripMenuItem->Click += gcnew System::EventHandler(this, &HeadForm::SaveToolStripMenuItem_Click);
 			// 
@@ -673,7 +672,7 @@ namespace COMUTL {
 				toolStripStatusLabel1->Text = "Made in Ukraine | ComUtl*";
 			}
 			else {
-				toolStripStatusLabel1->Text = "Made in Ukraine | ComUtl: " + System::IO::FileInfo(properties->currentFilename).Name + (String^)(!records->isSaved ? "*" : "");
+				toolStripStatusLabel1->Text = "Made in Ukraine | ComUtl: " + System::IO::FileInfo(properties->currentFilename).Name + (String^)(!repository->isSaved ? "*" : "");
 			}
 
 			array<ListBox^>^ listBoxes = gcnew array<ListBox^>{
@@ -693,7 +692,7 @@ namespace COMUTL {
 
 			for each(ListBox ^ calb in listBoxes) calb->Items->Clear();
 
-			auto record = records->GetRecord(GetSelectedRecordType());
+			auto record = repository->GetHeadRecord();
 			if (record == nullptr) return;
 
 			PriceListBox->Items->Add(record->price.ToString());
@@ -729,7 +728,7 @@ namespace COMUTL {
 		return static_cast<ERecordType>(ResourseComboBox->SelectedIndex);
 	}
 	private: System::Void PersonalDataToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
-		EditPersonalDataForm^ OpenEditPersonalDataForm = gcnew EditPersonalDataForm(records, GetSelectedRecordType());
+		EditPersonalDataForm^ OpenEditPersonalDataForm = gcnew EditPersonalDataForm(repository);
 		OpenEditPersonalDataForm->ShowDialog();
 		UpdateData();
 		//repository->Save("prekol");
@@ -741,12 +740,15 @@ namespace COMUTL {
 	}
 
 	private: System::Void TariffPriceToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
-		TariffPriceForm^ OpenTariffPriceForm = gcnew TariffPriceForm(tariffs);
+		TariffPriceForm^ OpenTariffPriceForm = gcnew TariffPriceForm(repository);
 		OpenTariffPriceForm->ShowDialog();
 	}
 
 	private: System::Void HeadForm_Load_1(System::Object^ sender, System::EventArgs^ e) {
-		records->LoadCurrent();
+		if (!repository->LoadCurrent()) {
+			repository->InitNew();
+		}
+
 		UpdateData();
 	}
 	private: System::Void HeadMenuStrip_ItemClicked(System::Object^ sender, System::Windows::Forms::ToolStripItemClickedEventArgs^ e) {
@@ -758,7 +760,7 @@ namespace COMUTL {
 		OpenInicatorsForm->ShowDialog();
 	}
 	private: System::Void LoadToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
-		auto result = records->LoadFrom(OpenFilename());
+		auto result = repository->LoadFrom(OpenFilename());
 		UpdateData();
 
 		if (!result) {
@@ -767,39 +769,37 @@ namespace COMUTL {
 	}
 	private: System::Void SaveToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (properties->currentFilename != nullptr) {
-			records->SaveCurrent();
+			repository->SaveCurrent();
 			UpdateData();
 			return;
 		}
 
-		records->SaveAs(NewFilename());
+		repository->SaveAs(NewFilename());
 		UpdateData();
 	}
 	private: System::Void SaveAsToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
-		records->SaveAs(NewFilename());
+		repository->SaveAs(NewFilename());
 		UpdateData();
 	}
 	private: System::Void ExitToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
-		records->SaveCurrent();
+		repository->SaveCurrent();
 		exit(0);
 	}
 	private: System::Void NewToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
-		records->InitNew();
+		repository->InitNew();
 		UpdateData();
 	};
 private: System::Void HeadForm_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
-	if (records->GetRecords()->Count <= 0) return;
-
-	if (!records->isSaved &&
+	if (!repository->isSaved &&
 		MessageBox::Show(this, "Are you sure", "Confirammtion", MessageBoxButtons::YesNo, MessageBoxIcon::Question) ==
 		System::Windows::Forms::DialogResult::Yes
 	) {
 		if (properties->currentFilename != nullptr) {
-			records->SaveCurrent();
+			repository->SaveCurrent();
 			return;
 		}
 
-		records->SaveAs(NewFilename());
+		repository->SaveAs(NewFilename());
 		UpdateData();
 	}
 }

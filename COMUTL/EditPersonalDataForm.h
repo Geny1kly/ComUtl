@@ -1,6 +1,6 @@
 #pragma once
 #include "iostream"
-#include "RecordRepository.h"
+#include "GlobalRepository.h"
 
 namespace COMUTL {
 
@@ -17,7 +17,7 @@ namespace COMUTL {
 	public ref class EditPersonalDataForm : public System::Windows::Forms::Form
 	{
 	public:
-		EditPersonalDataForm(RecordRepository^ repository, ERecordType selectedType)
+		EditPersonalDataForm(GlobalRepository^ repository)
 		{
 			InitializeComponent();
 			//
@@ -25,7 +25,6 @@ namespace COMUTL {
 			//
 
 			this->repository = repository;
-			this->selectedType = selectedType;
 		}
 
 	protected:
@@ -40,7 +39,7 @@ namespace COMUTL {
 			}
 		}
 
-	private: RecordRepository^ repository;
+	private: GlobalRepository^ repository;
 	private: ERecordType selectedType;
 
 	private: System::Windows::Forms::GroupBox^ EditConditionsGroupBox;
@@ -478,13 +477,12 @@ namespace COMUTL {
 
 		if (result == System::Windows::Forms::DialogResult::Yes) {
 
-			auto record = repository->GetRecord(selectedType);
+			auto record = repository->GetHeadRecord();
 
 			if (record == nullptr) {
-				record = gcnew HeadRecordForm();
-				record->type = selectedType;
+				record = gcnew HeadRecord();
 
-				repository->GetRecords()->Add(record);
+				repository->SetHeadRecord(record);
 			}
 
 			record->price = Double::Parse(PriceTextBox->Text);
@@ -507,7 +505,7 @@ namespace COMUTL {
 	}
 
 	private: System::Void EditPersonalDataForm_Load(System::Object^ sender, System::EventArgs^ e) {
-		auto record = repository->GetRecord(selectedType);
+		auto record = repository->GetHeadRecord();
 		if (record == nullptr) return;
 
 		PriceTextBox->Text = record->price.ToString();

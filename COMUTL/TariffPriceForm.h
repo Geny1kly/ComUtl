@@ -1,5 +1,5 @@
 #pragma once
-#include "TariffRepository.h"
+#include "GlobalRepository.h"
 #include <limits>
 #include <iostream>
 #include <fstream>
@@ -20,10 +20,10 @@ namespace COMUTL {
 	public ref class TariffPriceForm : public System::Windows::Forms::Form
 	{
 	public:
-		TariffPriceForm(TariffRepository^ tariffs)
+		TariffPriceForm(GlobalRepository^ repository)
 		{
 			InitializeComponent();
-			this->tariffs = tariffs;
+			this->repository = repository;
 			//
 			//TODO: Add the constructor code here
 			//
@@ -43,7 +43,7 @@ namespace COMUTL {
 	private: System::Windows::Forms::DataVisualization::Charting::Chart^ TariffPriceChart;
 	protected:
 
-	private: TariffRepository^ tariffs;
+	private: GlobalRepository^ repository;
 	private: bool isRefreshing;
 	private: Series^ monthlySeries;
 	private: Series^ yearlySeries;
@@ -323,6 +323,17 @@ namespace COMUTL {
 
 		isRefreshing = false;
 	}
+	TariffRecord^ GetRecord(int month, int year) {
+		auto tariffs = repository->GetTariffs();
+
+		for (int i = 0; i < tariffs->Count; i++) {
+			if (tariffs[i]->date->Month == month && tariffs[i]->date->Year == year) {
+				return tariffs[i];
+			}
+		}
+
+		return nullptr;
+	}
 	void InitData() {
 		this->TariffPriceChart->Series->Clear();
 		this->TariffPriceChart->ChartAreas->Clear();
@@ -344,7 +355,7 @@ namespace COMUTL {
 		monthlySeries->MarkerStyle = MarkerStyle::Circle;
 		monthlySeries->BorderWidth = 1;
 
-		auto records = tariffs->GetRecords();
+		auto tariffs = repository->GetTariffs();
 
 		this->TariffPriceChart->Series->Add(monthlySeries);
 		this->TariffPriceChart->Series->Add(yearlySeries);
@@ -354,17 +365,17 @@ namespace COMUTL {
 		this->TariffPriceDataGridView->Columns[1]->Name = "Montly tariff";
 		this->TariffPriceDataGridView->Columns[2]->Name = "Yearly tariff";
 
-		if (records->Count <= 0) {
+		if (tariffs->Count <= 0) {
 			return;
 		}
 
-		for (int i = 0; i < records->Count; i++) {
-			AddDisplayForRecord(records[i]);
+		for (int i = 0; i < tariffs->Count; i++) {
+			AddDisplayForRecord(tariffs[i]);
 		}
 
 		auto selectedDateParts = TariffPriceDataGridView->CurrentRow->Cells[0]->Value->ToString()->Split('.');
 
-		auto selectedRecord = tariffs->GetRecord(Int32::Parse(selectedDateParts[0]), Int32::Parse(selectedDateParts[1]));
+		auto selectedRecord = GetRecord(Int32::Parse(selectedDateParts[0]), Int32::Parse(selectedDateParts[1]));
 		if (selectedRecord == nullptr) {
 			return;
 		}
@@ -372,18 +383,19 @@ namespace COMUTL {
 		FillWithRecord(selectedRecord);
 	}
 	private: System::Void AddPriceButton_Click(System::Object^ sender, System::EventArgs^ e) {
-		TariffRecord^ tariff = tariffs->GetRecord(MonthComboBox->SelectedIndex + 1, Int32::Parse(YearComboBox->Text));
+		TariffRecord^ tariff = GetRecord(MonthComboBox->SelectedIndex + 1, Int32::Parse(YearComboBox->Text));
 
 		if (tariff == nullptr) {
 			tariff = gcnew TariffRecord();
-			tariffs->GetRecords()->Add(tariff);
+			repository->GetTariffs()->Add(tariff);
+			repository->isSaved = false;
 		}
 
 		tariff->montlyPrice = Convert::ToDouble(MontlyPriceTextBox->Text);
 		tariff->yearlyPrice = Convert::ToDouble(YearlyPriceTextBox->Text);
 		tariff->date = gcnew DateTime(Int32::Parse(YearComboBox->Text), MonthComboBox->SelectedIndex + 1, 1);
 
-		tariffs->Save();
+		repository->isSaved = false;
 
 		RefreshRecord(tariff);
 	}
@@ -393,7 +405,7 @@ private: System::Void TariffPriceForm_Load(System::Object^ sender, System::Event
 private: System::Void TariffPriceDataGridView_CurrentCellChanged(System::Object^ sender, System::EventArgs^ e) {
 	auto selectedDateParts = TariffPriceDataGridView->CurrentRow->Cells[0]->Value->ToString()->Split('.');
 
-	auto selectedRecord = tariffs->GetRecord(Int32::Parse(selectedDateParts[0]), Int32::Parse(selectedDateParts[1]));
+	auto selectedRecord = GetRecord(Int32::Parse(selectedDateParts[0]), Int32::Parse(selectedDateParts[1]));
 	if (selectedRecord == nullptr) {
 		return;
 	}

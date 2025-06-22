@@ -123,12 +123,11 @@
   <ItemGroup>
     <ClCompile Include="CalculationsForm.cpp" />
     <ClCompile Include="EditPersonalDataForm.cpp" />
+    <ClCompile Include="GlobalRepository.cpp" />
     <ClCompile Include="HeadForm.cpp" />
     <ClCompile Include="IndicatorsForm.cpp" />
-    <ClCompile Include="RecordRepository.cpp" />
     <ClCompile Include="Settings.cpp" />
     <ClCompile Include="TariffPriceForm.cpp" />
-    <ClCompile Include="TariffRepository.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CalculationsForm.h">
@@ -137,19 +136,20 @@
     <ClInclude Include="EditPersonalDataForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="GlobalRepository.h" />
     <ClInclude Include="HeadForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="HeadRecordForm.h" />
+    <ClInclude Include="HeadRecord.h" />
+    <ClInclude Include="IndicatorRecord.h" />
     <ClInclude Include="IndicatorsForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="RecordRepository.h" />
     <ClInclude Include="Settings.h" />
     <ClInclude Include="TariffPriceForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="TariffRepository.h" />
+    <ClInclude Include="TariffRecord.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="CalculationsForm.resx">

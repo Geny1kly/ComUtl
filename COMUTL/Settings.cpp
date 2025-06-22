@@ -3,17 +3,20 @@
 using namespace System::IO;
 
 void Properties::Load() {
+	currentFilename = nullptr;
+
 	FileStream^ fs;
 	try {
-		fs = gcnew FileStream("settings", FileMode::Open);
+		fs = gcnew FileStream("properties", FileMode::Open);
 	}
 	catch (...) {
-		currentFilename = nullptr;
 		return;
 	}
 	auto reader = gcnew BinaryReader(fs);
 
-	currentFilename = reader->ReadString();
+	if (reader->ReadBoolean()) {
+		currentFilename = reader->ReadString();
+	}
 
 	reader->Close();
 }
@@ -21,12 +24,15 @@ void Properties::Load() {
 void Properties::Save() {
 	FileStream^ fs;
 	try {
-		fs = gcnew FileStream("settings", FileMode::Create);
+		fs = gcnew FileStream("properties", FileMode::Create);
 	}
 	catch (...) {
 		return;
 	}
 	auto writer = gcnew BinaryWriter(fs);
+
+	writer->Write(!!currentFilename);
+	if (!currentFilename) return;
 
 	writer->Write(currentFilename);
 
