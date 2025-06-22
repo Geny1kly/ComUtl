@@ -492,7 +492,7 @@ namespace COMUTL {
 			record->planTarif = static_cast<EPlanTarif>(PlanTariffComboBox->SelectedIndex);
 			record->termPlan = TermPlanDateTimePicker->Value;
 			record->subsidious = SubsidiesCheckBox->Checked;
-			record->ownerName = String::Format("{0} {1} {2}", FirstNameTextBox->Text, SecondNameTextBox->Text, ThirdNameTextBox->Text);
+			record->ownerName = String::Format("{0} {1} {2}", SecondNameTextBox->Text, FirstNameTextBox->Text, ThirdNameTextBox->Text);
 			record->EISCode = EISCodeTextBox->Text;
 			record->oblast = OblastTextBox->Text;
 			record->city = CityTextBox->Text;

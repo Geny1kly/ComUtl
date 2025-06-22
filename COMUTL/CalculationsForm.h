@@ -55,10 +55,12 @@ namespace COMUTL {
 
 
 	private: System::Windows::Forms::Panel^ FirstPanel;
-	private: System::Windows::Forms::Button^ ShowButton;
+	private: System::Windows::Forms::Button^ PayButton;
+
 	private: System::Windows::Forms::ListBox^ StatBalanceListBox;
 
 	private: System::Windows::Forms::Label^ StatBalanceLabel;
+	private: System::Windows::Forms::TextBox^ textBox1;
 
 
 
@@ -84,9 +86,10 @@ namespace COMUTL {
 			this->SelectMonthComboBox = (gcnew System::Windows::Forms::ComboBox());
 			this->DateLabel = (gcnew System::Windows::Forms::Label());
 			this->FirstPanel = (gcnew System::Windows::Forms::Panel());
+			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->StatBalanceLabel = (gcnew System::Windows::Forms::Label());
 			this->StatBalanceListBox = (gcnew System::Windows::Forms::ListBox());
-			this->ShowButton = (gcnew System::Windows::Forms::Button());
+			this->PayButton = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->CalculationDataGridView))->BeginInit();
 			this->FirstPanel->SuspendLayout();
 			this->SuspendLayout();
@@ -104,9 +107,9 @@ namespace COMUTL {
 			// SelectYearComboBox
 			// 
 			this->SelectYearComboBox->FormattingEnabled = true;
-			this->SelectYearComboBox->Location = System::Drawing::Point(233, 13);
+			this->SelectYearComboBox->Location = System::Drawing::Point(203, 13);
 			this->SelectYearComboBox->Name = L"SelectYearComboBox";
-			this->SelectYearComboBox->Size = System::Drawing::Size(121, 24);
+			this->SelectYearComboBox->Size = System::Drawing::Size(101, 24);
 			this->SelectYearComboBox->TabIndex = 1;
 			// 
 			// SelectMonthComboBox
@@ -114,7 +117,7 @@ namespace COMUTL {
 			this->SelectMonthComboBox->FormattingEnabled = true;
 			this->SelectMonthComboBox->Location = System::Drawing::Point(96, 13);
 			this->SelectMonthComboBox->Name = L"SelectMonthComboBox";
-			this->SelectMonthComboBox->Size = System::Drawing::Size(121, 24);
+			this->SelectMonthComboBox->Size = System::Drawing::Size(101, 24);
 			this->SelectMonthComboBox->TabIndex = 2;
 			// 
 			// DateLabel
@@ -130,21 +133,29 @@ namespace COMUTL {
 			// FirstPanel
 			// 
 			this->FirstPanel->BackColor = System::Drawing::SystemColors::ActiveCaption;
+			this->FirstPanel->Controls->Add(this->textBox1);
 			this->FirstPanel->Controls->Add(this->StatBalanceLabel);
 			this->FirstPanel->Controls->Add(this->StatBalanceListBox);
-			this->FirstPanel->Controls->Add(this->ShowButton);
+			this->FirstPanel->Controls->Add(this->SelectYearComboBox);
+			this->FirstPanel->Controls->Add(this->PayButton);
 			this->FirstPanel->Controls->Add(this->SelectMonthComboBox);
 			this->FirstPanel->Controls->Add(this->DateLabel);
-			this->FirstPanel->Controls->Add(this->SelectYearComboBox);
 			this->FirstPanel->Location = System::Drawing::Point(14, 11);
 			this->FirstPanel->Name = L"FirstPanel";
 			this->FirstPanel->Size = System::Drawing::Size(837, 47);
 			this->FirstPanel->TabIndex = 4;
 			// 
+			// textBox1
+			// 
+			this->textBox1->Location = System::Drawing::Point(644, 13);
+			this->textBox1->Name = L"textBox1";
+			this->textBox1->Size = System::Drawing::Size(90, 22);
+			this->textBox1->TabIndex = 7;
+			// 
 			// StatBalanceLabel
 			// 
 			this->StatBalanceLabel->AutoSize = true;
-			this->StatBalanceLabel->Location = System::Drawing::Point(519, 16);
+			this->StatBalanceLabel->Location = System::Drawing::Point(345, 16);
 			this->StatBalanceLabel->Name = L"StatBalanceLabel";
 			this->StatBalanceLabel->Size = System::Drawing::Size(148, 16);
 			this->StatBalanceLabel->TabIndex = 6;
@@ -154,20 +165,20 @@ namespace COMUTL {
 			// 
 			this->StatBalanceListBox->FormattingEnabled = true;
 			this->StatBalanceListBox->ItemHeight = 16;
-			this->StatBalanceListBox->Location = System::Drawing::Point(675, 14);
+			this->StatBalanceListBox->Location = System::Drawing::Point(505, 14);
 			this->StatBalanceListBox->Name = L"StatBalanceListBox";
-			this->StatBalanceListBox->Size = System::Drawing::Size(128, 20);
+			this->StatBalanceListBox->Size = System::Drawing::Size(107, 20);
 			this->StatBalanceListBox->TabIndex = 5;
 			// 
-			// ShowButton
+			// PayButton
 			// 
-			this->ShowButton->Location = System::Drawing::Point(373, 13);
-			this->ShowButton->Name = L"ShowButton";
-			this->ShowButton->Size = System::Drawing::Size(75, 23);
-			this->ShowButton->TabIndex = 4;
-			this->ShowButton->Text = L"Show";
-			this->ShowButton->UseVisualStyleBackColor = true;
-			this->ShowButton->Click += gcnew System::EventHandler(this, &CalculationsForm::ShowButton_Click);
+			this->PayButton->Location = System::Drawing::Point(749, 11);
+			this->PayButton->Name = L"PayButton";
+			this->PayButton->Size = System::Drawing::Size(70, 27);
+			this->PayButton->TabIndex = 4;
+			this->PayButton->Text = L"Pay";
+			this->PayButton->UseVisualStyleBackColor = true;
+			this->PayButton->Click += gcnew System::EventHandler(this, &CalculationsForm::ShowButton_Click);
 			// 
 			// CalculationsForm
 			// 
@@ -202,7 +213,7 @@ namespace COMUTL {
             { 4, 2, 3.71f, 20.00f, -181.91f, 74.25f, 1.00f, -108.67f },
             { 3, 2, 4.33f, 120.00f, 2296.72f, 519.13f, 2997.76f, -181.91f },
             { 2, 2, 5.01f, 150.00f, 1545.97f, 750.75f, 0.00f, 2296.72 },
-            { 1, 2, 4.73f, 5.87f, 150.00f, 783.80f, 880.27f, 1545.97f },
+            { 1, 2, 5.87f, 150.00f, 783.80f, 880.27f, 118.11f, 1545.97f },
         };
 
 		this->CalculationDataGridView->Columns->Clear();

@@ -78,7 +78,7 @@ private: TariffRepository^ tariffs;
 	private: System::Windows::Forms::Button^ IndicatorsButton;
 	private: System::Windows::Forms::Label^ BalanceStatLabel;
 	private: System::Windows::Forms::ListBox^ StatBalanceListBox;
-	private: System::Windows::Forms::Button^ PayButton;
+
 	private: System::Windows::Forms::Label^ TermPlanLabel;
 	private: System::Windows::Forms::Label^ PlanTariffLabel;
 	private: System::Windows::Forms::Label^ DiscountLabel;
@@ -128,7 +128,6 @@ private: TariffRepository^ tariffs;
 			this->PersonalDataToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->AboutToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->MenuGroupBox = (gcnew System::Windows::Forms::GroupBox());
-			this->PayButton = (gcnew System::Windows::Forms::Button());
 			this->StatBalanceListBox = (gcnew System::Windows::Forms::ListBox());
 			this->BalanceStatLabel = (gcnew System::Windows::Forms::Label());
 			this->IndicatorsButton = (gcnew System::Windows::Forms::Button());
@@ -180,7 +179,7 @@ private: TariffRepository^ tariffs;
 			this->HeadMenuStrip->Location = System::Drawing::Point(0, 0);
 			this->HeadMenuStrip->Name = L"HeadMenuStrip";
 			this->HeadMenuStrip->Padding = System::Windows::Forms::Padding(5, 2, 0, 2);
-			this->HeadMenuStrip->Size = System::Drawing::Size(739, 28);
+			this->HeadMenuStrip->Size = System::Drawing::Size(660, 28);
 			this->HeadMenuStrip->TabIndex = 0;
 			this->HeadMenuStrip->Text = L"menuStrip1";
 			this->HeadMenuStrip->ItemClicked += gcnew System::Windows::Forms::ToolStripItemClickedEventHandler(this, &HeadForm::HeadMenuStrip_ItemClicked);
@@ -262,7 +261,6 @@ private: TariffRepository^ tariffs;
 			// MenuGroupBox
 			// 
 			this->MenuGroupBox->BackColor = System::Drawing::SystemColors::ActiveCaption;
-			this->MenuGroupBox->Controls->Add(this->PayButton);
 			this->MenuGroupBox->Controls->Add(this->StatBalanceListBox);
 			this->MenuGroupBox->Controls->Add(this->BalanceStatLabel);
 			this->MenuGroupBox->Controls->Add(this->IndicatorsButton);
@@ -272,26 +270,16 @@ private: TariffRepository^ tariffs;
 			this->MenuGroupBox->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->MenuGroupBox->Name = L"MenuGroupBox";
 			this->MenuGroupBox->Padding = System::Windows::Forms::Padding(3, 2, 3, 2);
-			this->MenuGroupBox->Size = System::Drawing::Size(715, 57);
+			this->MenuGroupBox->Size = System::Drawing::Size(639, 57);
 			this->MenuGroupBox->TabIndex = 1;
 			this->MenuGroupBox->TabStop = false;
 			this->MenuGroupBox->Text = L"Menu";
-			// 
-			// PayButton
-			// 
-			this->PayButton->Location = System::Drawing::Point(591, 18);
-			this->PayButton->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
-			this->PayButton->Name = L"PayButton";
-			this->PayButton->Size = System::Drawing::Size(59, 26);
-			this->PayButton->TabIndex = 9;
-			this->PayButton->Text = L"Pay";
-			this->PayButton->UseVisualStyleBackColor = true;
 			// 
 			// StatBalanceListBox
 			// 
 			this->StatBalanceListBox->FormattingEnabled = true;
 			this->StatBalanceListBox->ItemHeight = 16;
-			this->StatBalanceListBox->Location = System::Drawing::Point(484, 22);
+			this->StatBalanceListBox->Location = System::Drawing::Point(151, 21);
 			this->StatBalanceListBox->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->StatBalanceListBox->Name = L"StatBalanceListBox";
 			this->StatBalanceListBox->Size = System::Drawing::Size(101, 20);
@@ -300,7 +288,7 @@ private: TariffRepository^ tariffs;
 			// BalanceStatLabel
 			// 
 			this->BalanceStatLabel->AutoSize = true;
-			this->BalanceStatLabel->Location = System::Drawing::Point(368, 23);
+			this->BalanceStatLabel->Location = System::Drawing::Point(21, 23);
 			this->BalanceStatLabel->Name = L"BalanceStatLabel";
 			this->BalanceStatLabel->Size = System::Drawing::Size(110, 16);
 			this->BalanceStatLabel->TabIndex = 7;
@@ -308,7 +296,7 @@ private: TariffRepository^ tariffs;
 			// 
 			// IndicatorsButton
 			// 
-			this->IndicatorsButton->Location = System::Drawing::Point(229, 18);
+			this->IndicatorsButton->Location = System::Drawing::Point(522, 17);
 			this->IndicatorsButton->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->IndicatorsButton->Name = L"IndicatorsButton";
 			this->IndicatorsButton->Size = System::Drawing::Size(75, 27);
@@ -320,7 +308,7 @@ private: TariffRepository^ tariffs;
 			// ResourseLabel
 			// 
 			this->ResourseLabel->AutoSize = true;
-			this->ResourseLabel->Location = System::Drawing::Point(21, 23);
+			this->ResourseLabel->Location = System::Drawing::Point(302, 22);
 			this->ResourseLabel->Name = L"ResourseLabel";
 			this->ResourseLabel->Size = System::Drawing::Size(109, 16);
 			this->ResourseLabel->TabIndex = 6;
@@ -330,7 +318,7 @@ private: TariffRepository^ tariffs;
 			// 
 			this->ResourseComboBox->FormattingEnabled = true;
 			this->ResourseComboBox->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Gas", L"Water", L"Energy" });
-			this->ResourseComboBox->Location = System::Drawing::Point(137, 20);
+			this->ResourseComboBox->Location = System::Drawing::Point(418, 19);
 			this->ResourseComboBox->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->ResourseComboBox->Name = L"ResourseComboBox";
 			this->ResourseComboBox->Size = System::Drawing::Size(89, 24);
@@ -353,7 +341,7 @@ private: TariffRepository^ tariffs;
 			this->ConditionsGroupBox->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->ConditionsGroupBox->Name = L"ConditionsGroupBox";
 			this->ConditionsGroupBox->Padding = System::Windows::Forms::Padding(3, 2, 3, 2);
-			this->ConditionsGroupBox->Size = System::Drawing::Size(333, 270);
+			this->ConditionsGroupBox->Size = System::Drawing::Size(271, 270);
 			this->ConditionsGroupBox->TabIndex = 2;
 			this->ConditionsGroupBox->TabStop = false;
 			this->ConditionsGroupBox->Text = L"My conditions";
@@ -365,7 +353,7 @@ private: TariffRepository^ tariffs;
 			this->SubsdiesListBox->Location = System::Drawing::Point(135, 229);
 			this->SubsdiesListBox->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->SubsdiesListBox->Name = L"SubsdiesListBox";
-			this->SubsdiesListBox->Size = System::Drawing::Size(181, 20);
+			this->SubsdiesListBox->Size = System::Drawing::Size(119, 20);
 			this->SubsdiesListBox->TabIndex = 9;
 			// 
 			// TermPlanListBox
@@ -375,7 +363,7 @@ private: TariffRepository^ tariffs;
 			this->TermPlanListBox->Location = System::Drawing::Point(135, 177);
 			this->TermPlanListBox->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->TermPlanListBox->Name = L"TermPlanListBox";
-			this->TermPlanListBox->Size = System::Drawing::Size(181, 20);
+			this->TermPlanListBox->Size = System::Drawing::Size(119, 20);
 			this->TermPlanListBox->TabIndex = 8;
 			// 
 			// PlanTariffListBox
@@ -385,7 +373,7 @@ private: TariffRepository^ tariffs;
 			this->PlanTariffListBox->Location = System::Drawing::Point(135, 121);
 			this->PlanTariffListBox->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->PlanTariffListBox->Name = L"PlanTariffListBox";
-			this->PlanTariffListBox->Size = System::Drawing::Size(181, 20);
+			this->PlanTariffListBox->Size = System::Drawing::Size(119, 20);
 			this->PlanTariffListBox->TabIndex = 7;
 			// 
 			// DiscountListBox
@@ -395,7 +383,7 @@ private: TariffRepository^ tariffs;
 			this->DiscountListBox->Location = System::Drawing::Point(135, 70);
 			this->DiscountListBox->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->DiscountListBox->Name = L"DiscountListBox";
-			this->DiscountListBox->Size = System::Drawing::Size(181, 20);
+			this->DiscountListBox->Size = System::Drawing::Size(119, 20);
 			this->DiscountListBox->TabIndex = 6;
 			// 
 			// PriceListBox
@@ -405,7 +393,7 @@ private: TariffRepository^ tariffs;
 			this->PriceListBox->Location = System::Drawing::Point(135, 21);
 			this->PriceListBox->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->PriceListBox->Name = L"PriceListBox";
-			this->PriceListBox->Size = System::Drawing::Size(181, 20);
+			this->PriceListBox->Size = System::Drawing::Size(119, 20);
 			this->PriceListBox->TabIndex = 5;
 			// 
 			// SubdiesLabel
@@ -460,11 +448,11 @@ private: TariffRepository^ tariffs;
 			this->InfoGroupBox->Controls->Add(this->OwnerListBox);
 			this->InfoGroupBox->Controls->Add(this->EISCodeLabel);
 			this->InfoGroupBox->Controls->Add(this->OwnerLabel);
-			this->InfoGroupBox->Location = System::Drawing::Point(357, 102);
+			this->InfoGroupBox->Location = System::Drawing::Point(293, 102);
 			this->InfoGroupBox->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->InfoGroupBox->Name = L"InfoGroupBox";
 			this->InfoGroupBox->Padding = System::Windows::Forms::Padding(3, 2, 3, 2);
-			this->InfoGroupBox->Size = System::Drawing::Size(369, 95);
+			this->InfoGroupBox->Size = System::Drawing::Size(358, 95);
 			this->InfoGroupBox->TabIndex = 3;
 			this->InfoGroupBox->TabStop = false;
 			this->InfoGroupBox->Text = L"My info";
@@ -518,11 +506,11 @@ private: TariffRepository^ tariffs;
 			this->AddressGroupBox->Controls->Add(this->AddressStreetLabel);
 			this->AddressGroupBox->Controls->Add(this->AddressCityLabel);
 			this->AddressGroupBox->Controls->Add(this->AddressOblastLabel);
-			this->AddressGroupBox->Location = System::Drawing::Point(357, 206);
+			this->AddressGroupBox->Location = System::Drawing::Point(293, 206);
 			this->AddressGroupBox->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->AddressGroupBox->Name = L"AddressGroupBox";
 			this->AddressGroupBox->Padding = System::Windows::Forms::Padding(3, 2, 3, 2);
-			this->AddressGroupBox->Size = System::Drawing::Size(369, 166);
+			this->AddressGroupBox->Size = System::Drawing::Size(358, 166);
 			this->AddressGroupBox->TabIndex = 4;
 			this->AddressGroupBox->TabStop = false;
 			this->AddressGroupBox->Text = L"Address";
@@ -611,7 +599,7 @@ private: TariffRepository^ tariffs;
 			this->statusStrip1->Location = System::Drawing::Point(0, 380);
 			this->statusStrip1->Name = L"statusStrip1";
 			this->statusStrip1->Padding = System::Windows::Forms::Padding(1, 0, 13, 0);
-			this->statusStrip1->Size = System::Drawing::Size(739, 26);
+			this->statusStrip1->Size = System::Drawing::Size(660, 26);
 			this->statusStrip1->TabIndex = 5;
 			this->statusStrip1->Text = L"statusStrip1";
 			// 
@@ -627,7 +615,7 @@ private: TariffRepository^ tariffs;
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::ControlDarkDark;
-			this->ClientSize = System::Drawing::Size(739, 406);
+			this->ClientSize = System::Drawing::Size(660, 406);
 			this->Controls->Add(this->statusStrip1);
 			this->Controls->Add(this->AddressGroupBox);
 			this->Controls->Add(this->InfoGroupBox);

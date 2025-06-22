@@ -125,7 +125,6 @@
     <ClCompile Include="EditPersonalDataForm.cpp" />
     <ClCompile Include="HeadForm.cpp" />
     <ClCompile Include="IndicatorsForm.cpp" />
-    <ClCompile Include="PaymentForm.cpp" />
     <ClCompile Include="RecordRepository.cpp" />
     <ClCompile Include="TariffPriceForm.cpp" />
     <ClCompile Include="TariffRepository.cpp" />
@@ -142,9 +141,6 @@
     </ClInclude>
     <ClInclude Include="HeadRecordForm.h" />
     <ClInclude Include="IndicatorsForm.h">
-      <FileType>CppForm</FileType>
-    </ClInclude>
-    <ClInclude Include="PaymentForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="RecordRepository.h" />
@@ -165,9 +161,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="IndicatorsForm.resx">
       <DependentUpon>IndicatorsForm.h</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PaymentForm.resx">
-      <DependentUpon>PaymentForm.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TariffPriceForm.resx">
       <DependentUpon>TariffPriceForm.h</DependentUpon>
