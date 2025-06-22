@@ -11,6 +11,7 @@ using namespace System::Collections::Generic;
 
 String^ NewFilename();
 String^ OpenFilename();
+String^ GetVeryShortDateString(DateTime^ date);
 
 enum ERecordType {
     Gas,

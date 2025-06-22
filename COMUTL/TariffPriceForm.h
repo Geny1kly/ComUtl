@@ -277,9 +277,6 @@ namespace COMUTL {
 
 
 #pragma endregion
-	String^ GetVeryShortDateString(TariffRecord^ record) {
-		return String::Format("{2}{0}.{1}", record->date->Month, record->date->Year, record->date->Month < 10 ? "0" : "");
-	}
 	void FillWithRecord(TariffRecord^ record) {
 		MontlyPriceTextBox->Text = record->montlyPrice.ToString();
 		YearlyPriceTextBox->Text = record->yearlyPrice.ToString();
@@ -289,13 +286,13 @@ namespace COMUTL {
 	}
 	void AddDisplayForRecord(TariffRecord^ record) {
 		this->TariffPriceDataGridView->Rows->Add(
-			GetVeryShortDateString(record),
+			GetVeryShortDateString(record->date),
 			record->montlyPrice.ToString("F0"),
 			record->yearlyPrice > 0 ? record->yearlyPrice.ToString("F0") : "-"
 		);
 
-		monthlySeries->Points->AddXY(GetVeryShortDateString(record), record->montlyPrice);
-		if (record->yearlyPrice > 0) yearlySeries->Points->AddXY(GetVeryShortDateString(record), record->yearlyPrice);
+		monthlySeries->Points->AddXY(GetVeryShortDateString(record->date), record->montlyPrice);
+		if (record->yearlyPrice > 0) yearlySeries->Points->AddXY(GetVeryShortDateString(record->date), record->yearlyPrice);
 	}
 	void RefreshRecord(TariffRecord^ record) {
 		if (isRefreshing) return;
@@ -303,7 +300,7 @@ namespace COMUTL {
 
 		int i;
 		for (i = 0; i < TariffPriceDataGridView->Rows->Count - 1; i++) {
-			if (TariffPriceDataGridView->Rows[i]->Cells[0]->Value->ToString() == GetVeryShortDateString(record)) {
+			if (TariffPriceDataGridView->Rows[i]->Cells[0]->Value->ToString() == GetVeryShortDateString(record->date)) {
 				TariffPriceDataGridView->Rows[i]->Cells[1]->Value = record->montlyPrice.ToString("F0");
 				TariffPriceDataGridView->Rows[i]->Cells[2]->Value = record->yearlyPrice.ToString("F0");
 				break;

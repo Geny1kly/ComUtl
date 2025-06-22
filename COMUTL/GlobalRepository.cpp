@@ -11,6 +11,10 @@ GlobalRepository::GlobalRepository(Properties^ properties)
     GasTariffs = gcnew List<TariffRecord^>();
     WaterTariffs = gcnew List<TariffRecord^>();
     ElectricityTariffs = gcnew List<TariffRecord^>();
+
+    GasIndicators = gcnew List<IndicatorRecord^>();
+    WaterIndicators = gcnew List<IndicatorRecord^>();
+    ElectricityIndicators = gcnew List<IndicatorRecord^>();
 }
 
 HeadRecord^ GlobalRepository::GetHeadRecord() {
@@ -89,6 +93,9 @@ String^ OpenFilename() {
 
 	return openFileDialog->FileName;
 }
+String^ GetVeryShortDateString(DateTime^ date) {
+	return String::Format("{2}{0}.{1}", date->Month, date->Year, date->Month < 10 ? "0" : "");
+}
 
 //writes
 void WriteHeadRecord(BinaryWriter^ writer, HeadRecord^ record) {
@@ -112,6 +119,10 @@ void WriteTariffRecord(BinaryWriter^ writer, TariffRecord^ record) {
 	writer->Write(record->date->ToBinary());
 	writer->Write(record->montlyPrice);
 	writer->Write(record->yearlyPrice);
+}
+void WriteIndicatorRecord(BinaryWriter^ writer, IndicatorRecord^ record) {
+	writer->Write(record->indicator);
+	writer->Write(record->date->ToBinary());
 }
 
 //reads
@@ -144,6 +155,14 @@ TariffRecord^ ReadTariffRecord(BinaryReader^ reader) {
 
 	return record;
 }
+IndicatorRecord^ ReadIndicatorRecord(BinaryReader^ reader) {
+	auto record = gcnew IndicatorRecord();
+
+	record->indicator = reader->ReadInt64();
+	record->date = gcnew DateTime(reader->ReadInt64());
+	
+	return record;
+}
 
 //saves
 bool GlobalRepository::SaveCurrent() {
@@ -161,15 +180,21 @@ bool GlobalRepository::SaveAs(String^ filename)
 	}
 	auto writer = gcnew BinaryWriter(fs);
 
-	writer->Write("comutl-data");
+	writer->Write("comutl-data-t2");
 
 	WriteHeadRecord(writer, GasHeadRecord);
 	WriteHeadRecord(writer, WaterHeadRecord);
 	WriteHeadRecord(writer, ElectricityHeadRecord);
 
+	//gas
 	writer->Write(GasTariffs->Count);
 	writer->Write(WaterTariffs->Count);
 	writer->Write(ElectricityTariffs->Count);
+
+	//indicators
+	writer->Write(GasIndicators->Count);
+	writer->Write(WaterIndicators->Count);
+	writer->Write(ElectricityIndicators->Count);
 
 	for (int i = 0; i < GasTariffs->Count; i++) {
 		WriteTariffRecord(writer, GasTariffs[i]);
@@ -179,6 +204,16 @@ bool GlobalRepository::SaveAs(String^ filename)
 	}
 	for (int i = 0; i < ElectricityTariffs->Count; i++) {
 		WriteTariffRecord(writer, ElectricityTariffs[i]);
+	}
+
+	for (int i = 0; i < GasIndicators->Count; i++) {
+		WriteIndicatorRecord(writer, GasIndicators[i]);
+	}
+	for (int i = 0; i < WaterIndicators->Count; i++) {
+		WriteIndicatorRecord(writer, WaterIndicators[i]);
+	}
+	for (int i = 0; i < ElectricityIndicators->Count; i++) {
+		WriteIndicatorRecord(writer, ElectricityIndicators[i]);
 	}
 
 	writer->Close();
@@ -194,7 +229,7 @@ bool GlobalRepository::SaveAs(String^ filename)
 //loads
 bool GlobalRepository::LoadCurrent() {
 	if (!properties->currentFilename) return false;
-	LoadFrom(properties->currentFilename);
+	return LoadFrom(properties->currentFilename);
 }
 bool GlobalRepository::LoadFrom(String^ filename) {
 	FileStream^ fs;
@@ -207,7 +242,7 @@ bool GlobalRepository::LoadFrom(String^ filename) {
 	auto reader = gcnew BinaryReader(fs);
 
 	auto label = reader->ReadString();
-	if (label != "comutl-data") return false;
+	if (label != "comutl-data-t2") return false;
 
 	Clear();
 
@@ -219,6 +254,10 @@ bool GlobalRepository::LoadFrom(String^ filename) {
 	auto WaterTariffsCount = reader->ReadInt32();
 	auto ElectricityTariffsCount = reader->ReadInt32();
 
+	auto GasIndicatorsCount = reader->ReadInt32();
+	auto WaterIndicatorsCount = reader->ReadInt32();
+	auto ElectricityIndicatorsCount = reader->ReadInt32();
+
 	for (int i = 0; i < GasTariffsCount; i++) {
 		GasTariffs->Add(ReadTariffRecord(reader));
 	}
@@ -227,6 +266,16 @@ bool GlobalRepository::LoadFrom(String^ filename) {
 	}
 	for (int i = 0; i < ElectricityTariffsCount; i++) {
 		ElectricityTariffs->Add(ReadTariffRecord(reader));
+	}
+
+	for (int i = 0; i < GasIndicatorsCount; i++) {
+		GasIndicators->Add(ReadIndicatorRecord(reader));
+	}
+	for (int i = 0; i < WaterIndicatorsCount; i++) {
+		WaterIndicators->Add(ReadIndicatorRecord(reader));
+	}
+	for (int i = 0; i < ElectricityIndicatorsCount; i++) {
+		ElectricityIndicators->Add(ReadIndicatorRecord(reader));
 	}
 
 	reader->Close();

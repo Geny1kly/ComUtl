@@ -5,7 +5,7 @@ using namespace System;
 ref class IndicatorRecord {
 public:
 	long long indicator;
-	DateTime date;
+	DateTime^ date;
 
 	IndicatorRecord() {}
 };

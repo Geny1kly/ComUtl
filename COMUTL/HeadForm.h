@@ -50,11 +50,17 @@ namespace COMUTL {
 	private: System::Windows::Forms::ToolStripMenuItem^ NewToolStripMenuItem;
 
 	private: System::Void HeadForm_Load(System::Object^ sender, System::EventArgs^ e) {
+		this->ResourseComboBox->SelectedIndex = 0;
+
+		repository->mode = GetSelectedRecordType();
+
 		properties->Load();
-		repository->LoadCurrent();
+
+		if (!repository->LoadCurrent()) {
+			repository->InitNew();
+		}
 
 		UpdateData();
-		this->ResourseComboBox->SelectedIndex = 0;
 	}
 	private: System::Void ResourseComboBox_Selected(System::Object^ sender, System::EventArgs^ e) {
 		repository->mode = GetSelectedRecordType();
@@ -745,18 +751,13 @@ namespace COMUTL {
 	}
 
 	private: System::Void HeadForm_Load_1(System::Object^ sender, System::EventArgs^ e) {
-		if (!repository->LoadCurrent()) {
-			repository->InitNew();
-		}
-
-		UpdateData();
 	}
 	private: System::Void HeadMenuStrip_ItemClicked(System::Object^ sender, System::Windows::Forms::ToolStripItemClickedEventArgs^ e) {
 	}
 	private: System::Void EditToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
 	}
 	private: System::Void IndicatorsButton_Click(System::Object^ sender, System::EventArgs^ e) {
-		IndicatorsForm^ OpenInicatorsForm = gcnew IndicatorsForm();
+		IndicatorsForm^ OpenInicatorsForm = gcnew IndicatorsForm(repository);
 		OpenInicatorsForm->ShowDialog();
 	}
 	private: System::Void LoadToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
