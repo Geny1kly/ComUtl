@@ -15,6 +15,10 @@ GlobalRepository::GlobalRepository(Properties^ properties)
     GasIndicators = gcnew List<IndicatorRecord^>();
     WaterIndicators = gcnew List<IndicatorRecord^>();
     ElectricityIndicators = gcnew List<IndicatorRecord^>();
+
+    GasCalculations = gcnew List<CalculationRecord^>();
+    WaterCalculations = gcnew List<CalculationRecord^>();
+    ElectricityCalculations = gcnew List<CalculationRecord^>();
 }
 
 HeadRecord^ GlobalRepository::GetHeadRecord() {
@@ -63,6 +67,18 @@ List<IndicatorRecord^>^ GlobalRepository::GetIndicators() {
 		return WaterIndicators;
 	case Electricity:
 		return ElectricityIndicators;
+	}
+}
+
+List<CalculationRecord^>^ GlobalRepository::GetCalculations() {
+	switch (mode)
+	{
+	case Gas:
+		return GasCalculations;
+	case Water:
+		return WaterCalculations;
+	case Electricity:
+		return ElectricityCalculations;
 	}
 }
 
@@ -124,6 +140,14 @@ void WriteIndicatorRecord(BinaryWriter^ writer, IndicatorRecord^ record) {
 	writer->Write(record->indicator);
 	writer->Write(record->date->ToBinary());
 }
+void WriteCalculationRecord(BinaryWriter^ writer, CalculationRecord^ record) {
+	writer->Write(record->date->ToBinary());
+	writer->Write((unsigned char)record->tariffType);
+	writer->Write(record->tariffPrice);
+	writer->Write(record->accrualIndicators);
+	writer->Write(record->accrualBalance);
+	writer->Write(record->payedAmount);
+}
 
 //reads
 HeadRecord^ ReadHeadRecord(BinaryReader^ reader) {
@@ -163,6 +187,18 @@ IndicatorRecord^ ReadIndicatorRecord(BinaryReader^ reader) {
 	
 	return record;
 }
+CalculationRecord^ ReadCalculationRecord(BinaryReader^ reader) {
+	auto record = gcnew CalculationRecord();
+
+	record->date = gcnew DateTime(reader->ReadInt64());
+	record->tariffType = static_cast<EPlanTarif>(reader->ReadByte());
+	record->tariffPrice = reader->ReadDouble();
+	record->accrualIndicators = reader->ReadDouble();
+	record->accrualBalance = reader->ReadDouble();
+	record->payedAmount = reader->ReadDouble();
+
+	return record;
+}
 
 //saves
 bool GlobalRepository::SaveCurrent() {
@@ -180,7 +216,7 @@ bool GlobalRepository::SaveAs(String^ filename)
 	}
 	auto writer = gcnew BinaryWriter(fs);
 
-	writer->Write("comutl-data-t2");
+	writer->Write("comutl");
 
 	WriteHeadRecord(writer, GasHeadRecord);
 	WriteHeadRecord(writer, WaterHeadRecord);
@@ -195,6 +231,11 @@ bool GlobalRepository::SaveAs(String^ filename)
 	writer->Write(GasIndicators->Count);
 	writer->Write(WaterIndicators->Count);
 	writer->Write(ElectricityIndicators->Count);
+
+	//calculations
+	writer->Write(GasCalculations->Count);
+	writer->Write(WaterCalculations->Count);
+	writer->Write(ElectricityCalculations->Count);
 
 	for (int i = 0; i < GasTariffs->Count; i++) {
 		WriteTariffRecord(writer, GasTariffs[i]);
@@ -214,6 +255,16 @@ bool GlobalRepository::SaveAs(String^ filename)
 	}
 	for (int i = 0; i < ElectricityIndicators->Count; i++) {
 		WriteIndicatorRecord(writer, ElectricityIndicators[i]);
+	}
+
+	for (int i = 0; i < GasCalculations->Count; i++) {
+		WriteCalculationRecord(writer, GasCalculations[i]);
+	}
+	for (int i = 0; i < WaterCalculations->Count; i++) {
+		WriteCalculationRecord(writer, WaterCalculations[i]);
+	}
+	for (int i = 0; i < ElectricityCalculations->Count; i++) {
+		WriteCalculationRecord(writer, ElectricityCalculations[i]);
 	}
 
 	writer->Close();
@@ -242,7 +293,7 @@ bool GlobalRepository::LoadFrom(String^ filename) {
 	auto reader = gcnew BinaryReader(fs);
 
 	auto label = reader->ReadString();
-	if (label != "comutl-data-t2") return false;
+	if (label != "comutl") return false;
 
 	Clear();
 
@@ -257,6 +308,10 @@ bool GlobalRepository::LoadFrom(String^ filename) {
 	auto GasIndicatorsCount = reader->ReadInt32();
 	auto WaterIndicatorsCount = reader->ReadInt32();
 	auto ElectricityIndicatorsCount = reader->ReadInt32();
+
+	auto GasCalculationsCount = reader->ReadInt32();
+	auto WaterCalculationsCount = reader->ReadInt32();
+	auto ElectricityCalculationsCount = reader->ReadInt32();
 
 	for (int i = 0; i < GasTariffsCount; i++) {
 		GasTariffs->Add(ReadTariffRecord(reader));
@@ -276,6 +331,16 @@ bool GlobalRepository::LoadFrom(String^ filename) {
 	}
 	for (int i = 0; i < ElectricityIndicatorsCount; i++) {
 		ElectricityIndicators->Add(ReadIndicatorRecord(reader));
+	}
+
+	for (int i = 0; i < GasCalculationsCount; i++) {
+		GasCalculations->Add(ReadCalculationRecord(reader));
+	}
+	for (int i = 0; i < WaterCalculationsCount; i++) {
+		WaterCalculations->Add(ReadCalculationRecord(reader));
+	}
+	for (int i = 0; i < ElectricityCalculationsCount; i++) {
+		ElectricityCalculations->Add(ReadCalculationRecord(reader));
 	}
 
 	reader->Close();

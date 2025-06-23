@@ -130,6 +130,7 @@
     <ClCompile Include="TariffPriceForm.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CalculationRecord.h" />
     <ClInclude Include="CalculationsForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>

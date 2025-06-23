@@ -5,6 +5,7 @@
 #include "HeadRecord.h"
 #include "TariffRecord.h"
 #include "IndicatorRecord.h"
+#include "CalculationRecord.h"
 
 using namespace System;
 using namespace System::Collections::Generic;
@@ -35,6 +36,10 @@ ref class GlobalRepository
     List<IndicatorRecord^>^ WaterIndicators;
     List<IndicatorRecord^>^ ElectricityIndicators;
 
+    List<CalculationRecord^>^ GasCalculations;
+    List<CalculationRecord^>^ WaterCalculations;
+    List<CalculationRecord^>^ ElectricityCalculations;
+
 public:
     ERecordType mode;
 
@@ -47,6 +52,7 @@ public:
 
     List<TariffRecord^>^ GetTariffs();
     List<IndicatorRecord^>^ GetIndicators();
+    List<CalculationRecord^>^ GetCalculations();
 
 	bool SaveCurrent();
 	bool SaveAs(String^ filename);

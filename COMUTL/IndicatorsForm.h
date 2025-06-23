@@ -188,7 +188,18 @@ namespace COMUTL {
 		}
 #pragma endregion
 	private:
-		IndicatorRecord^ GetRecord(int month, int year) {
+		CalculationRecord^ GetCalculation(int month, int year) {
+			auto calculations = repostiory->GetCalculations();
+
+			for (int i = 0; i < calculations->Count; i++) {
+				if (calculations[i]->date->Month == month && calculations[i]->date->Year == year) {
+					return calculations[i];
+				}
+			}
+
+			return nullptr;
+		}
+		IndicatorRecord^ GetIndicator(int month, int year) {
 			auto indicators = repostiory->GetIndicators();
 
 			for (int i = 0; i < indicators->Count; i++) {
@@ -218,16 +229,31 @@ namespace COMUTL {
 
 		}
 
+		void CalculateRecord(IndicatorRecord^ indicator, CalculationRecord^ calculation) {
+			auto head = repostiory->GetHeadRecord();
+
+			//calculate calculation record here, using head and indicator
+		}
+
 		System::Void AddInicatorsButton_Click(System::Object^ sender, System::EventArgs^ e) {
-			auto indicator = GetRecord(MonthComboBox->SelectedIndex + 1, Int32::Parse(YearComboBox->Text));
+			auto indicator = GetIndicator(MonthComboBox->SelectedIndex + 1, Int32::Parse(YearComboBox->Text));
+			auto calculation = GetCalculation(MonthComboBox->SelectedIndex + 1, Int32::Parse(YearComboBox->Text));
 
 			if (!indicator) {
 				indicator = gcnew IndicatorRecord();
+				indicator->date = gcnew DateTime(Int32::Parse(YearComboBox->Text), MonthComboBox->SelectedIndex + 1, 1);
+
 				repostiory->GetIndicators()->Add(indicator);
+			}
+			if (!calculation) {
+				calculation = gcnew CalculationRecord();
+				calculation->date = gcnew DateTime(Int32::Parse(YearComboBox->Text), MonthComboBox->SelectedIndex + 1, 1);
+
+				repostiory->GetCalculations()->Add(calculation);
 			}
 
 			indicator->indicator = Int64::Parse(IndicatorTextBox->Text);
-			indicator->date = gcnew DateTime(Int32::Parse(YearComboBox->Text), MonthComboBox->SelectedIndex + 1, 1);
+			CalculateRecord(indicator, calculation);
 
 			repostiory->isSaved = false;
 

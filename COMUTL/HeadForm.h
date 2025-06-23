@@ -741,7 +741,7 @@ namespace COMUTL {
 	}
 
 	private: System::Void CalculationsToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
-		CalculationsForm^ OpenCalculationsForm = gcnew CalculationsForm();
+		CalculationsForm^ OpenCalculationsForm = gcnew CalculationsForm(repository);
 		OpenCalculationsForm->ShowDialog();
 	}
 
